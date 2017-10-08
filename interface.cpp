@@ -9,9 +9,10 @@
 #include "controls.h"
 #include "apu.h"
 #include "cpuexec.h"
+#include "controls.h"
 
-const char* test_file = "smw.sfc";
-//const char* test_file = "mmx.sfc";
+//const char* test_file = "smw.sfc";
+const char* test_file = "mmx.sfc";
 
 void module_init(const module_init_info_t *init_info, module_info_t *module_info)
 {
@@ -61,6 +62,19 @@ void module_init(const module_init_info_t *init_info, module_info_t *module_info
    module_info->framerate = 60;
    module_info->audio_rate = Settings.SoundInputRate;
 
+   S9xMapButton(PAD_BUTTON_A, S9xGetCommandT("Joypad1 A"), false);
+   S9xMapButton(PAD_BUTTON_B, S9xGetCommandT("Joypad1 B"), false);
+   S9xMapButton(PAD_BUTTON_X, S9xGetCommandT("Joypad1 X"), false);
+   S9xMapButton(PAD_BUTTON_Y, S9xGetCommandT("Joypad1 Y"), false);
+   S9xMapButton(PAD_BUTTON_UP, S9xGetCommandT("Joypad1 Up"), false);
+   S9xMapButton(PAD_BUTTON_DOWN, S9xGetCommandT("Joypad1 Down"), false);
+   S9xMapButton(PAD_BUTTON_LEFT, S9xGetCommandT("Joypad1 Left"), false);
+   S9xMapButton(PAD_BUTTON_RIGHT, S9xGetCommandT("Joypad1 Right"), false);
+   S9xMapButton(PAD_BUTTON_L, S9xGetCommandT("Joypad1 L"), false);
+   S9xMapButton(PAD_BUTTON_R, S9xGetCommandT("Joypad1 R"), false);
+   S9xMapButton(PAD_BUTTON_SELECT, S9xGetCommandT("{Joypad1 Select,Mouse1 L}"), false);
+   S9xMapButton(PAD_BUTTON_START, S9xGetCommandT("{Joypad1 Start,Mouse1 R}"), false);
+
    debug_log("module init\n");
 }
 
@@ -82,6 +96,14 @@ void module_run(module_run_info_t *run_info)
    //   GFX.ScreenSize = GFX.Pitch / 2 * SNES_HEIGHT_EXTENDED * (Settings.SupportHiRes ? 2 : 1);
    //   GFX.PPL = GFX.RealPPL = GFX.Pitch >> 1;
 
+   int i;
+   for(i = 0; i < PAD_BUTTON_MAX; i++)
+      S9xReportButton(i, run_info->pad->buttons.mask & (1 << i));
+
+//   if(run_info->pad->buttons.A)
+//      debug_log("A PRESSED!!\n");
+//   else
+//      debug_log("A RELEASED!!\n");
    S9xMainLoop();
    S9xFinalizeSamples();
    run_info->max_samples = S9xGetSampleCount() >> 1;
