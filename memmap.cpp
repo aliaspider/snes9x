@@ -2515,7 +2515,7 @@ void CMemory::InitROM (void)
 
 		// SPC7110
 		case 0xF93A:
-			Settings.SPC7110RTC = TRUE;
+			Settings.SPC7110RTC = TRUE; /* fallthrough */
 		case 0xF53A:
 			Settings.SPC7110 = TRUE;
 			S9xInitSPC7110();
