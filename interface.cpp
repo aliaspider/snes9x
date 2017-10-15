@@ -11,9 +11,6 @@
 #include "cpuexec.h"
 #include "controls.h"
 
-//const char* test_file = "smw.sfc";
-const char* test_file = "mmx.sfc";
-
 void module_init(const module_init_info_t *init_info, module_info_t *module_info)
 {
    memset(&Settings, 0, sizeof(Settings));
