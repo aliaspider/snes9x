@@ -117,7 +117,7 @@ void module_run(module_run_info_t *run_info)
 
    run_info->frame_completed = true;
 }
-
+#ifndef __MINGW32__
 void _splitpath(const char *path, char *drive, char *dir, char *fname, char *ext)
 {
    *drive = 0;
@@ -177,6 +177,8 @@ void _makepath(char *path, const char *, const char *dir, const char *fname, con
       strcat(path, ext);
    }
 }
+#endif
+
 void S9xMessage(int type, int number, const char *message)
 {
    const int   max = 36 * 3;

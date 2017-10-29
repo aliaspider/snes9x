@@ -2165,7 +2165,7 @@ static void DisplayWatchedAddresses (void)
 			break;
 
 		int32	displayNumber = 0;
-		char	buf[32];
+		char	buf[64];
 
 		for (int r = 0; r < watches[i].size; r++)
 			displayNumber += (Cheat.CWatchRAM[(watches[i].address - 0x7E0000) + r]) << (8 * r);

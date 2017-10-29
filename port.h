@@ -205,6 +205,7 @@
 #include <sys/types.h>
 
 #ifdef __WIN32__
+#undef NOMINMAX
 #define NOMINMAX
 #include <windows.h>
 #endif
@@ -312,9 +313,11 @@ void _splitpath (const char *, char *, char *, char *, char *);
 void _makepath (char *, const char *, const char *, const char *, const char *);
 #define S9xDisplayString	DisplayStringFromBottom
 #else   // __WIN32__
+#ifndef __MINGW32__
 #define snprintf _snprintf
 #define strcasecmp	stricmp
 #define strncasecmp	strnicmp
+#endif
 #ifndef __WIN32_LIBSNES__
 void WinDisplayStringFromBottom(const char *string, int linesFromBottom, int pixelsFromLeft, bool allowWrap);
 #define S9xDisplayString	WinDisplayStringFromBottom

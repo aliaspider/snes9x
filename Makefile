@@ -94,6 +94,7 @@ FLAGS += -fomit-frame-pointer
 FLAGS += -DHAVE_STDINT_H
 #FLAGS += -DPTR_NOT_INT
 FLAGS += -DRIGHTSHIFT_IS_SAR
+FLAGS += -D__WIN32_LIBSNES__
 
 FLAGS += -I. -Iapu/ -Iapu/bapu -Ijma/ -Ifilter/
 
