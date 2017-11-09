@@ -100,7 +100,7 @@ S9xSDLSoundDriver::open_device (void)
     audiospec->userdata = this;
 
     printf ("SDL sound driver initializing...\n");
-    printf ("    --> (Frequency: %dhz, Latency: %dms)...",
+    printf ("    --> (Frequency: %" PRId32 "hz, Latency: %" PRId32 "ms)...",
             audiospec->freq,
             (audiospec->samples * 1000 / audiospec->freq) << 1);
 

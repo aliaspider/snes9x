@@ -1215,12 +1215,12 @@ void S9xUpdateFrameCounter (int offset)
 			max(0, (int) (Movie.CurrentFrame + offset)), pad_read || !Settings.MovieNotifyIgnored ? "" : " (ignored)");
 	else
 	if (Movie.State == MOVIE_STATE_PLAY)
-		sprintf(GFX.FrameDisplayString, "Playing frame: %d / %d",
+		sprintf(GFX.FrameDisplayString, "Playing frame: %d / %" PRId32 "",
 			max(0, (int) (Movie.CurrentFrame + offset)), Movie.MaxFrame);
 #ifdef NETPLAY_SUPPORT
 	else
 	if (Settings.NetPlay)
-		sprintf(GFX.FrameDisplayString, "%s frame: %d", Settings.NetPlayServer ? "Server" : "Client",
+		sprintf(GFX.FrameDisplayString, "%s frame: %" PRId32 "", Settings.NetPlayServer ? "Server" : "Client",
 			max(0, (int) (NetPlay.FrameCount + offset)));
 #endif
 }

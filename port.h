@@ -230,6 +230,7 @@
 #ifndef snes9x_types_defined
 #define snes9x_types_defined
 typedef unsigned char		bool8;
+#include <inttypes.h>
 #ifdef HAVE_STDINT_H
 #include <stdint.h>
 typedef intptr_t			pint;

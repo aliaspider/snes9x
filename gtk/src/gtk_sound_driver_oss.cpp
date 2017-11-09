@@ -124,7 +124,7 @@ S9xOSSSoundDriver::open_device (void)
 
     printf ("OK\n");
 
-    printf ("    --> (Frequency: %d)...", Settings.SoundPlaybackRate);
+    printf ("    --> (Frequency: %" PRId32 ")...", Settings.SoundPlaybackRate);
     if (ioctl (filedes, SNDCTL_DSP_SPEED, &Settings.SoundPlaybackRate) < 0)
         goto close_fail;
 
@@ -136,7 +136,7 @@ S9xOSSSoundDriver::open_device (void)
 
     output_buffer_size = S9xSoundPowerof2 (temp & 0xffff);
 
-    printf ("    --> (Buffer size: %d bytes, %dms latency)...",
+    printf ("    --> (Buffer size: %" PRId32 " bytes, %" PRId32 "ms latency)...",
             output_buffer_size,
             (((output_buffer_size * 1000) >> (Settings.Stereo ? 1 : 0))
                                           >> (Settings.SixteenBitSound ? 1 : 0))

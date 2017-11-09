@@ -83,7 +83,7 @@ S9xAlsaSoundDriver::open_device (void)
 
     printf ("OK\n");
 
-    printf ("    --> (%s, %s, %dhz, %d ms)...",
+    printf ("    --> (%s, %s, %" PRId32 "hz, %" PRId32 " ms)...",
             Settings.SixteenBitSound ? "16-bit" : "8-bit",
             Settings.Stereo ? "Stereo" : "Mono",
             Settings.SoundPlaybackRate,

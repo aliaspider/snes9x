@@ -2784,7 +2784,7 @@ void CMemory::InitROM (void)
 	sprintf(ROMName, "%s", Safe(ROMName));
 	sprintf(ROMId, "%s", Safe(ROMId));
 
-	sprintf(String, "\"%s\" [%s] %s, %s, %s, %s, SRAM:%s, ID:%s, CRC32:%08X",
+	sprintf(String, "\"%s\" [%s] %s, %s, %s, %s, SRAM:%s, ID:%s, CRC32:%08" PRIX32 "",
 		displayName, isChecksumOK ? "checksum ok" : ((Multi.cartType == 4) ? "no checksum" : "bad checksum"),
 		MapType(), Size(), KartContents(), Settings.PAL ? "PAL" : "NTSC", StaticRAMSize(), ROMId, ROMCRC32);
 	S9xMessage(S9X_INFO, S9X_ROM_INFO, String);
@@ -3562,7 +3562,7 @@ const char * CMemory::StaticRAMSize (void)
 	if (SRAMSize > 16)
 		strcpy(str, "Corrupt");
 	else
-		sprintf(str, "%dKbits", 8 * (SRAMMask + 1) / 1024);
+		sprintf(str, "%" PRId32 "Kbits", 8 * (SRAMMask + 1) / 1024);
 
 	return (str);
 }
@@ -3701,17 +3701,17 @@ void CMemory::MakeRomInfoText (char *romtext)
 	strcat(romtext, temp);
 	sprintf(temp, "\n                 Type: 0x%02X", ROMType);
 	strcat(romtext, temp);
-	sprintf(temp, "\n    Size (calculated): %dMbits", CalculatedSize / 0x20000);
+	sprintf(temp, "\n    Size (calculated): %" PRId32 "Mbits", CalculatedSize / 0x20000);
 	strcat(romtext, temp);
 	sprintf(temp, "\n        Size (header): %s", Size());
 	strcat(romtext, temp);
 	sprintf(temp, "\n            SRAM size: %s", StaticRAMSize());
 	strcat(romtext, temp);
-	sprintf(temp, "\nChecksum (calculated): 0x%04X", CalculatedChecksum);
+	sprintf(temp, "\nChecksum (calculated): 0x%04" PRIX32 "", CalculatedChecksum);
 	strcat(romtext, temp);
-	sprintf(temp, "\n    Checksum (header): 0x%04X", ROMChecksum);
+	sprintf(temp, "\n    Checksum (header): 0x%04" PRIX32 "", ROMChecksum);
 	strcat(romtext, temp);
-	sprintf(temp, "\n  Complement (header): 0x%04X", ROMComplementChecksum);
+	sprintf(temp, "\n  Complement (header): 0x%04" PRIX32 "", ROMComplementChecksum);
 	strcat(romtext, temp);
 	sprintf(temp, "\n         Video Output: %s", (ROMRegion > 12 || ROMRegion < 2) ? "NTSC 60Hz" : "PAL 50Hz");
 	strcat(romtext, temp);
@@ -3721,7 +3721,7 @@ void CMemory::MakeRomInfoText (char *romtext)
 	strcat(romtext, temp);
 	sprintf(temp, "\n               Region: %s", Country());
 	strcat(romtext, temp);
-	sprintf(temp, "\n                CRC32: 0x%08X", ROMCRC32);
+	sprintf(temp, "\n                CRC32: 0x%08" PRIX32 "", ROMCRC32);
 	strcat(romtext, temp);
 }
 
@@ -3828,7 +3828,7 @@ void CMemory::ApplyROMFixes (void)
 		if (match_na("BATTLE GRANDPRIX")) // Battle Grandprix
 		{
 			Timings.DMACPUSync = 20;
-			printf("DMA sync: %d\n", Timings.DMACPUSync);
+			printf("DMA sync: %" PRId32 "\n", Timings.DMACPUSync);
 		}
 	}
 
@@ -3841,7 +3841,7 @@ void CMemory::ApplyROMFixes (void)
 		if (match_na("Aero the AcroBat 2"))
 		{
 			Timings.IRQPendCount = 2;
-			printf("IRQ count hack: %d\n", Timings.IRQPendCount);
+			printf("IRQ count hack: %" PRId32 "\n", Timings.IRQPendCount);
 		}
 	}
 
@@ -3897,7 +3897,7 @@ void CMemory::ApplyROMFixes (void)
 // BPS % UPS % IPS
 
 // number decoding used for both BPS and UPS
-static uint32 XPSdecode (const uint8 *data, unsigned &addr, unsigned size)
+static uint32 XPSdecode (const uint8 *data, uint32 &addr, unsigned size)
 {
 	uint32 offset = 0, shift = 1;
 	while(addr < size) {
@@ -4395,7 +4395,7 @@ void CMemory::CheckForAnyPatch (const char *rom_filename, bool8 header, int32 &r
 
 		do
 		{
-			snprintf(ips, 8, "%03d.ips", i);
+			snprintf(ips, 8, "%03" PRId32 ".ips", i);
 			_makepath(fname, drive, dir, name, ips);
 
 			if (!(patch_file = OPEN_FSTREAM(fname, "rb")))
@@ -4430,7 +4430,7 @@ void CMemory::CheckForAnyPatch (const char *rom_filename, bool8 header, int32 &r
 
 		do
 		{
-			snprintf(ips, _MAX_EXT + 2, "ips%d", i);
+			snprintf(ips, _MAX_EXT + 2, "ips%" PRId32 "", i);
 			if (strlen(ips) > _MAX_EXT)
 				break;
 			_makepath(fname, drive, dir, name, ips);
@@ -4467,7 +4467,7 @@ void CMemory::CheckForAnyPatch (const char *rom_filename, bool8 header, int32 &r
 
 		do
 		{
-			snprintf(ips, 4, "ip%d", i);
+			snprintf(ips, 4, "ip%" PRId32 "", i);
 			_makepath(fname, drive, dir, name, ips);
 
 			if (!(patch_file = OPEN_FSTREAM(fname, "rb")))
@@ -4560,7 +4560,7 @@ void CMemory::CheckForAnyPatch (const char *rom_filename, bool8 header, int32 &r
 
 				do
 				{
-					snprintf(ips, _MAX_EXT + 2, "ips%d", i);
+					snprintf(ips, _MAX_EXT + 2, "ips%" PRId32 "", i);
 					if (strlen(ips) > _MAX_EXT)
 						break;
 
@@ -4595,7 +4595,7 @@ void CMemory::CheckForAnyPatch (const char *rom_filename, bool8 header, int32 &r
 
 				do
 				{
-					snprintf(ips, 4, "ip%d", i);
+					snprintf(ips, 4, "ip%" PRId32 "", i);
 
 					if (unzFindExtension(file, ips) != UNZ_OK)
 						break;
@@ -4656,7 +4656,7 @@ void CMemory::CheckForAnyPatch (const char *rom_filename, bool8 header, int32 &r
 
 		do
 		{
-			snprintf(ips, 9, ".%03d.ips", i);
+			snprintf(ips, 9, ".%03" PRId32 ".ips", i);
 			n = S9xGetFilename(ips, PATCH_DIR);
 
 			if (!(patch_file = OPEN_FSTREAM(n, "rb")))
@@ -4691,7 +4691,7 @@ void CMemory::CheckForAnyPatch (const char *rom_filename, bool8 header, int32 &r
 
 		do
 		{
-			snprintf(ips, _MAX_EXT + 3, ".ips%d", i);
+			snprintf(ips, _MAX_EXT + 3, ".ips%" PRId32 "", i);
 			if (strlen(ips) > _MAX_EXT + 1)
 				break;
 			n = S9xGetFilename(ips, PATCH_DIR);
@@ -4728,7 +4728,7 @@ void CMemory::CheckForAnyPatch (const char *rom_filename, bool8 header, int32 &r
 
 		do
 		{
-			snprintf(ips, 5, ".ip%d", i);
+			snprintf(ips, 5, ".ip%" PRId32 "", i);
 			n = S9xGetFilename(ips, PATCH_DIR);
 
 			if (!(patch_file = OPEN_FSTREAM(n, "rb")))

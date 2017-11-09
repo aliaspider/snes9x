@@ -271,12 +271,12 @@ void S9xNPShutdownClient (int c, bool8 report_error = FALSE)
 
         close (NPServer.Clients [c].Socket);
 #ifdef NP_DEBUG
-        printf ("SERVER: Player %d disconnecting @%ld\n", c + 1, S9xGetMilliTime () - START);
+        printf ("SERVER: Player %" PRId32 " disconnecting @%ld\n", c + 1, S9xGetMilliTime () - START);
 #endif
         if (report_error)
         {
             sprintf (NetPlay.ErrorMsg,
-                     "Player %d on '%s' has disconnected.", c + 1,
+                     "Player %" PRId32 " on '%s' has disconnected.", c + 1,
                      NPServer.Clients [c].HostName);
             S9xNPSetWarning  (NetPlay.ErrorMsg);
         }
@@ -338,7 +338,7 @@ static bool8 S9xNPSGetData (int socket, uint8 *data, int length)
             {
                 got = num_bytes;
 #ifdef NP_DEBUG
-                printf ("SERVER: WSAEMSGSIZE, actual bytes %d while receiving data @%d\n", got, S9xGetMilliTime () - START);
+                printf ("SERVER: WSAEMSGSIZE, actual bytes %" PRId32 " while receiving data @%" PRId32 "\n", got, S9xGetMilliTime () - START);
 #endif
             }
 #else
@@ -490,14 +490,14 @@ void S9xNPProcessClient (int c)
     if (header [1] != NPServer.Clients [c].ReceiveSequenceNum)
     {
 #ifdef NP_DEBUG
-        printf ("SERVER: Messages lost from '%s', expected %d, got %d\n",
+        printf ("SERVER: Messages lost from '%s', expected %" PRId32 ", got %" PRId32 "\n",
                 NPServer.Clients [c].HostName ?
                 NPServer.Clients [c].HostName : "Unknown",
                 NPServer.Clients [c].ReceiveSequenceNum,
                 header [1]);
 #endif
         sprintf (NetPlay.WarningMsg,
-                 "SERVER: Messages lost from '%s', expected %d, got %d\n",
+                 "SERVER: Messages lost from '%s', expected %" PRId32 ", got %" PRId32 "\n",
                 NPServer.Clients [c].HostName ?
                 NPServer.Clients [c].HostName : "Unknown",
                 NPServer.Clients [c].ReceiveSequenceNum,
@@ -540,7 +540,7 @@ void S9xNPProcessClient (int c)
 
             NPServer.Clients [c].ROMName = strdup ((char *) &data [4]);
 #ifdef NP_DEBUG
-            printf ("SERVER: Client is playing: %s, Frame Time: %d @%ld\n", data + 4, READ_LONG (data), S9xGetMilliTime () - START);
+            printf ("SERVER: Client is playing: %s, Frame Time: %" PRId32 " @%ld\n", data + 4, READ_LONG (data), S9xGetMilliTime () - START);
 #endif
 
             NPServer.Clients [c].SendSequenceNum = 0;
@@ -584,7 +584,7 @@ void S9xNPProcessClient (int c)
 
         case NP_CLNT_LOADED_ROM:
 #ifdef NP_DEBUG
-            printf ("SERVER: Client %d loaded requested ROM @%ld...\n", c, S9xGetMilliTime () - START);
+            printf ("SERVER: Client %" PRId32 " loaded requested ROM @%ld...\n", c, S9xGetMilliTime () - START);
 #endif
             NPServer.Clients [c].SaidHello = TRUE;
             NPServer.Clients [c].Ready = FALSE;
@@ -603,7 +603,7 @@ void S9xNPProcessClient (int c)
 
         case NP_CLNT_RECEIVED_ROM_IMAGE:
 #ifdef NP_DEBUG
-            printf ("SERVER: Client %d received ROM image @%ld...\n", c, S9xGetMilliTime () - START);
+            printf ("SERVER: Client %" PRId32 " received ROM image @%ld...\n", c, S9xGetMilliTime () - START);
 #endif
             NPServer.Clients [c].SaidHello = TRUE;
             NPServer.Clients [c].Ready = FALSE;
@@ -623,7 +623,7 @@ void S9xNPProcessClient (int c)
 
         case NP_CLNT_WAITING_FOR_ROM_IMAGE:
 #ifdef NP_DEBUG
-            printf ("SERVER: Client %d waiting for ROM image @%ld...\n", c, S9xGetMilliTime () - START);
+            printf ("SERVER: Client %" PRId32 " waiting for ROM image @%ld...\n", c, S9xGetMilliTime () - START);
 #endif
             NPServer.Clients [c].SaidHello = TRUE;
             NPServer.Clients [c].Ready = FALSE;
@@ -634,7 +634,7 @@ void S9xNPProcessClient (int c)
 
         case NP_CLNT_READY:
 #ifdef NP_DEBUG
-            printf ("SERVER: Client %d ready @%ld...\n", c, S9xGetMilliTime () - START);
+            printf ("SERVER: Client %" PRId32 " ready @%ld...\n", c, S9xGetMilliTime () - START);
 #endif
             if (NPServer.Clients [c].SaidHello)
             {
@@ -649,7 +649,7 @@ void S9xNPProcessClient (int c)
             NPServer.Clients [c].Paused = FALSE;
             S9xNPRecomputePause ();
 
-//printf ("SERVER: SaidHello = TRUE, SeqNum = %d @%d\n", NPServer.Clients [c].SendSequenceNum, S9xGetMilliTime () - START);
+//printf ("SERVER: SaidHello = TRUE, SeqNum = %" PRId32 " @%" PRId32 "\n", NPServer.Clients [c].SendSequenceNum, S9xGetMilliTime () - START);
             if (NPServer.NumClients > NP_ONE_CLIENT)
             {
                 if (!NPServer.SendROMImageOnConnect)
@@ -681,13 +681,13 @@ void S9xNPProcessClient (int c)
             break;
         case NP_CLNT_PAUSE:
 #ifdef NP_DEBUG
-            printf ("SERVER: Client %d Paused: %s @%ld\n", c, (header [2] & 0x80) ? "YES" : "NO", S9xGetMilliTime () - START);
+            printf ("SERVER: Client %" PRId32 " Paused: %s @%ld\n", c, (header [2] & 0x80) ? "YES" : "NO", S9xGetMilliTime () - START);
 #endif
             NPServer.Clients [c].Paused = (header [2] & 0x80) != 0;
             if (NPServer.Clients [c].Paused)
-                sprintf (NetPlay.WarningMsg, "SERVER: Client %d has paused.", c + 1);
+                sprintf (NetPlay.WarningMsg, "SERVER: Client %" PRId32 " has paused.", c + 1);
             else
-                sprintf (NetPlay.WarningMsg, "SERVER: Client %d has resumed.", c + 1);
+                sprintf (NetPlay.WarningMsg, "SERVER: Client %" PRId32 " has resumed.", c + 1);
             S9xNPSetWarning (NetPlay.WarningMsg);
             S9xNPRecomputePause ();
             break;
@@ -762,7 +762,7 @@ void S9xNPAcceptClient (int Listen, bool8 block)
 #ifdef NP_DEBUG
             printf ("SERVER: resolved new client's hostname (%s) @%ld\n", host->h_name, S9xGetMilliTime () - START);
 #endif
-	    sprintf (NetPlay.WarningMsg, "SERVER: Player %d on %s has connected.", i + 1, host->h_name);
+	    sprintf (NetPlay.WarningMsg, "SERVER: Player %" PRId32 " on %s has connected.", i + 1, host->h_name);
 	    NPServer.Clients [i].HostName = strdup (host->h_name);
 	}
         else
@@ -773,7 +773,7 @@ void S9xNPAcceptClient (int Listen, bool8 block)
 #ifdef NP_DEBUG
             printf ("SERVER: couldn't resolve new client's hostname (%s) @%ld\n", ip ? ip : "Unknown", S9xGetMilliTime () - START);
 #endif
-	    sprintf (NetPlay.WarningMsg, "SERVER: Player %d on %s has connected.", i + 1, ip ? ip : "Unknown");
+	    sprintf (NetPlay.WarningMsg, "SERVER: Player %" PRId32 " on %s has connected.", i + 1, ip ? ip : "Unknown");
         }
         S9xNPSetWarning (NetPlay.WarningMsg);
     }
@@ -982,7 +982,7 @@ void S9xNPServerLoop (void *)
             void *task_data = NPServer.TaskQueue [NPServer.TaskHead].Data;
 
 #if defined(NP_DEBUG) && NP_DEBUG == 2
-            printf ("SERVER: task %d @%ld\n", NPServer.TaskQueue [NPServer.TaskHead].Task, S9xGetMilliTime () - START);
+            printf ("SERVER: task %" PRId32 " @%ld\n", NPServer.TaskQueue [NPServer.TaskHead].Task, S9xGetMilliTime () - START);
 #endif
 
             switch (NPServer.TaskQueue [NPServer.TaskHead].Task)
@@ -1058,7 +1058,7 @@ bool8 S9xNPStartServer (int port)
     static int p;
 
 #ifdef NP_DEBUG
-    printf ("SERVER: Starting server on port %d @%ld\n", port, S9xGetMilliTime () - START);
+    printf ("SERVER: Starting server on port %" PRId32 " @%ld\n", port, S9xGetMilliTime () - START);
 #endif
     p = port;
     server_continue = TRUE;
@@ -1123,9 +1123,9 @@ void S9xNPSendROMImageToAllClients ()
 bool8 S9xNPSendROMImageToClient (int c)
 {
 #ifdef NP_DEBUG
-    printf ("SERVER: Sending ROM image to player %d @%ld\n", c + 1, S9xGetMilliTime () - START);
+    printf ("SERVER: Sending ROM image to player %" PRId32 " @%ld\n", c + 1, S9xGetMilliTime () - START);
 #endif
-    sprintf (NetPlay.ActionMsg, "Sending ROM image to player %d...", c + 1);
+    sprintf (NetPlay.ActionMsg, "Sending ROM image to player %" PRId32 "...", c + 1);
     S9xNPSetAction (NetPlay.ActionMsg, TRUE);
 
     uint8 header [7 + 1 + 4];
@@ -1234,10 +1234,10 @@ bool8 S9xNPLoadFreezeFile (const char *fname, uint8 *&data, uint32 &len)
 void S9xNPSendFreezeFile (int c, uint8 *data, uint32 len)
 {
 #ifdef NP_DEBUG
-    printf ("SERVER: Sending freeze file to player %d @%ld\n", c + 1, S9xGetMilliTime () - START);
+    printf ("SERVER: Sending freeze file to player %" PRId32 " @%ld\n", c + 1, S9xGetMilliTime () - START);
 #endif
 
-    sprintf (NetPlay.ActionMsg, "SERVER: Sending freeze-file to player %d...", c + 1);
+    sprintf (NetPlay.ActionMsg, "SERVER: Sending freeze-file to player %" PRId32 "...", c + 1);
     S9xNPSetAction (NetPlay.ActionMsg, TRUE);
     uint8 header [7 + 4];
     uint8 *ptr = header;
@@ -1267,7 +1267,7 @@ void S9xNPRecomputePause ()
             (!NPServer.Clients [c].Ready || NPServer.Clients [c].Paused))
         {
 #if defined(NP_DEBUG) && NP_DEBUG == 2
-            printf ("SERVER: Paused because of client %d (%d,%d) @%ld\n", c, NPServer.Clients [c].Ready, NPServer.Clients [c].Paused, S9xGetMilliTime () - START);
+            printf ("SERVER: Paused because of client %" PRId32 " (%" PRId32 ",%" PRId32 ") @%ld\n", c, NPServer.Clients [c].Ready, NPServer.Clients [c].Paused, S9xGetMilliTime () - START);
 #endif
             NPServer.Paused = TRUE;
             return;
@@ -1307,9 +1307,9 @@ void S9xNPSendROMLoadRequest (const char *filename)
 	if (NPServer.Clients [i].SaidHello)
 	{
 #ifdef NP_DEBUG
-            printf ("SERVER: Sending load ROM requesting to player %d @%ld\n", i + 1, S9xGetMilliTime () - START);
+            printf ("SERVER: Sending load ROM requesting to player %" PRId32 " @%ld\n", i + 1, S9xGetMilliTime () - START);
 #endif
-            sprintf (NetPlay.WarningMsg, "SERVER: sending ROM load request to player %d...", i + 1);
+            sprintf (NetPlay.WarningMsg, "SERVER: sending ROM load request to player %" PRId32 "...", i + 1);
             S9xNPSetAction (NetPlay.WarningMsg, TRUE);
             data [1] = NPServer.Clients [i].SendSequenceNum++;
 	    if (!S9xNPSSendData (NPServer.Clients [i].Socket, data, len))
@@ -1335,7 +1335,7 @@ void S9xNPSendSRAMToAllClients ()
 void S9xNPSendSRAMToClient (int c)
 {
 #ifdef NP_DEBUG
-    printf ("SERVER: Sending S-RAM data to player %d @%ld\n", c + 1, S9xGetMilliTime () - START);
+    printf ("SERVER: Sending S-RAM data to player %" PRId32 " @%ld\n", c + 1, S9xGetMilliTime () - START);
 #endif
     uint8 sram [7];
     int SRAMSize = Memory.SRAMSize ?
@@ -1344,7 +1344,7 @@ void S9xNPSendSRAMToClient (int c)
         SRAMSize = 0x10000;
     int len = 7 + SRAMSize;
 
-    sprintf (NetPlay.ActionMsg, "SERVER: Sending S-RAM to player %d...", c + 1);
+    sprintf (NetPlay.ActionMsg, "SERVER: Sending S-RAM to player %" PRId32 "...", c + 1);
     S9xNPSetAction (NetPlay.ActionMsg, TRUE);
 
     uint8 *ptr = sram;

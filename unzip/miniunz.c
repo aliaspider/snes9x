@@ -179,7 +179,7 @@ int do_list(uf)
 
     err = unzGetGlobalInfo (uf,&gi);
     if (err!=UNZ_OK)
-        printf("error %d with zipfile in unzGetGlobalInfo \n",err);
+        printf("error %" PRId32 " with zipfile in unzGetGlobalInfo \n",err);
     printf(" Length  Method   Size  Ratio   Date    Time   CRC-32     Name\n");
     printf(" ------  ------   ----  -----   ----    ----   ------     ----\n");
     for (i=0;i<gi.number_entry;i++)
@@ -192,7 +192,7 @@ int do_list(uf)
         err = unzGetCurrentFileInfo(uf,&file_info,filename_inzip,sizeof(filename_inzip),NULL,0,NULL,0);
         if (err!=UNZ_OK)
         {
-            printf("error %d with zipfile in unzGetCurrentFileInfo\n",err);
+            printf("error %" PRId32 " with zipfile in unzGetCurrentFileInfo\n",err);
             break;
         }
         if (file_info.uncompressed_size>0)
@@ -240,7 +240,7 @@ int do_list(uf)
             err = unzGoToNextFile(uf);
             if (err!=UNZ_OK)
             {
-                printf("error %d with zipfile in unzGoToNextFile\n",err);
+                printf("error %" PRId32 " with zipfile in unzGoToNextFile\n",err);
                 break;
             }
         }
@@ -270,7 +270,7 @@ int do_extract_currentfile(uf,popt_extract_without_path,popt_overwrite,password)
 
     if (err!=UNZ_OK)
     {
-        printf("error %d with zipfile in unzGetCurrentFileInfo\n",err);
+        printf("error %" PRId32 " with zipfile in unzGetCurrentFileInfo\n",err);
         return err;
     }
 
@@ -311,7 +311,7 @@ int do_extract_currentfile(uf,popt_extract_without_path,popt_overwrite,password)
         err = unzOpenCurrentFilePassword(uf,password);
         if (err!=UNZ_OK)
         {
-            printf("error %d with zipfile in unzOpenCurrentFilePassword\n",err);
+            printf("error %" PRId32 " with zipfile in unzOpenCurrentFilePassword\n",err);
         }
 
         if (((*popt_overwrite)==0) && (err==UNZ_OK))
@@ -377,7 +377,7 @@ int do_extract_currentfile(uf,popt_extract_without_path,popt_overwrite,password)
                 err = unzReadCurrentFile(uf,buf,size_buf);
                 if (err<0)
                 {
-                    printf("error %d with zipfile in unzReadCurrentFile\n",err);
+                    printf("error %" PRId32 " with zipfile in unzReadCurrentFile\n",err);
                     break;
                 }
                 if (err>0)
@@ -402,7 +402,7 @@ int do_extract_currentfile(uf,popt_extract_without_path,popt_overwrite,password)
             err = unzCloseCurrentFile (uf);
             if (err!=UNZ_OK)
             {
-                printf("error %d with zipfile in unzCloseCurrentFile\n",err);
+                printf("error %" PRId32 " with zipfile in unzCloseCurrentFile\n",err);
             }
         }
         else
@@ -427,7 +427,7 @@ int do_extract(uf,opt_extract_without_path,opt_overwrite,password)
 
     err = unzGetGlobalInfo (uf,&gi);
     if (err!=UNZ_OK)
-        printf("error %d with zipfile in unzGetGlobalInfo \n",err);
+        printf("error %" PRId32 " with zipfile in unzGetGlobalInfo \n",err);
 
     for (i=0;i<gi.number_entry;i++)
     {
@@ -441,7 +441,7 @@ int do_extract(uf,opt_extract_without_path,opt_overwrite,password)
             err = unzGoToNextFile(uf);
             if (err!=UNZ_OK)
             {
-                printf("error %d with zipfile in unzGoToNextFile\n",err);
+                printf("error %" PRId32 " with zipfile in unzGoToNextFile\n",err);
                 break;
             }
         }

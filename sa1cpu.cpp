@@ -400,7 +400,7 @@ static void S9xSA1UpdateTimer (void) // FIXME
 		{
 			Memory.FillRAM[0x220b] &= ~0x40;
 		#ifdef DEBUGGER
-			S9xTraceFormattedMessage("--- SA-1 Timer IRQ triggered  prev HC:%04d  curr HC:%04d  HTimer:%d Pos:%04d  VTimer:%d Pos:%03d",
+			S9xTraceFormattedMessage("--- SA-1 Timer IRQ triggered  prev HC:%04d  curr HC:%04d  HTimer:%" PRId32 " Pos:%04d  VTimer:%" PRId32 " Pos:%03d",
 				SA1.PrevHCounter, SA1.HCounter,
 				(Memory.FillRAM[0x2210] & 0x01) ? 1 : 0, SA1.HTimerIRQPos * ONE_DOT_CYCLE,
 				(Memory.FillRAM[0x2210] & 0x02) ? 1 : 0, SA1.VTimerIRQPos);

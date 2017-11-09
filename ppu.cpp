@@ -290,7 +290,7 @@ void S9xUpdateHVTimerPosition (void)
 	}
 
 #ifdef DEBUGGER
-	S9xTraceFormattedMessage("--- IRQ Timer set  HTimer:%d Pos:%04d  VTimer:%d Pos:%03d",
+	S9xTraceFormattedMessage("--- IRQ Timer set  HTimer:%" PRId32 " Pos:%04d  VTimer:%" PRId32 " Pos:%03d",
 		PPU.HTimerEnabled, PPU.HTimerPosition, PPU.VTimerEnabled, PPU.VTimerPosition);
 #endif
 }
@@ -341,7 +341,7 @@ void S9xSetPPU (uint8 Byte, uint16 Address)
 
 #ifdef DEBUGGER
 	if (CPU.InHDMA)
-		S9xTraceFormattedMessage("--- HDMA PPU %04X -> %02X", Address, Byte);
+		S9xTraceFormattedMessage("--- HDMA PPU %04" PRIX32 " -> %02X", Address, Byte);
 #endif
 
 	if (Settings.MSU1 && (Address & 0xfff8) == 0x2000) // MSU-1
@@ -1085,7 +1085,7 @@ void S9xSetPPU (uint8 Byte, uint16 Address)
 			missing.unknownppu_write = Address;
 			if (Settings.TraceUnknownRegisters)
 			{
-				sprintf(String, "Unknown register write: $%02X->$%04X\n", Byte, Address);
+				sprintf(String, "Unknown register write: $%02X->$%04" PRIX32 "\n", Byte, Address);
 				S9xMessage(S9X_TRACE, S9X_PPU_TRACE, String);
 			}
 		}
@@ -1516,7 +1516,7 @@ void S9xSetCPU (uint8 Byte, uint16 Address)
 				}
 
                 #ifdef DEBUGGER
-	                S9xTraceFormattedMessage("--- IRQ Timer Enable HTimer:%d Pos:%04d  VTimer:%d Pos:%03d",
+	                S9xTraceFormattedMessage("--- IRQ Timer Enable HTimer:%" PRId32 " Pos:%04d  VTimer:%" PRId32 " Pos:%03d",
 		                PPU.HTimerEnabled, PPU.HTimerPosition, PPU.VTimerEnabled, PPU.VTimerPosition);
                 #endif
 

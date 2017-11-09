@@ -246,8 +246,8 @@ Snes9x 1.51
 - Unix: parameter: -keypress shows to stderr and on-screen
   the currently pressed buttons on joypad 1.                (DeHackEd)
 - Unix: Stream dumping (NOT COMPLETE). With -dumpstreams,
-  raw video and raw audio are dumped to videostream%d.dat
-  and audiostream%d.dat, where %d increments on each CPU
+  raw video and raw audio are dumped to videostream%" PRId32 ".dat
+  and audiostream%" PRId32 ".dat, where %" PRId32 " increments on each CPU
   reset, starting at zero.                                  (DeHackEd)
 - Unix: Non-blocking sound on Linux. It makes seeking nicer.(DeHackEd)
 - Unix: Configurable sound device.                          (pierredavidbelanger)

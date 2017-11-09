@@ -3518,7 +3518,7 @@ static void Op42 (void)
 			{
 				char	buf[25];
 				CPU.Flags |= TRACE_FLAG;
-				snprintf(buf, 25, "WDM trace on at $%02X:%04X", Registers.PB, Registers.PCw);
+				snprintf(buf, 25, "WDM trace on at $%02X:%04" PRIX32 "", Registers.PB, Registers.PCw);
 				S9xMessage(S9X_DEBUG, S9X_DEBUG_OUTPUT, buf);
 				if (trace != NULL)
 					fclose(trace);
@@ -3532,7 +3532,7 @@ static void Op42 (void)
 			{
 				char	buf[26];
 				CPU.Flags &= ~TRACE_FLAG;
-				snprintf(buf, 26, "WDM trace off at $%02X:%04X", Registers.PB, Registers.PCw);
+				snprintf(buf, 26, "WDM trace off at $%02X:%04" PRIX32 "", Registers.PB, Registers.PCw);
 				S9xMessage(S9X_DEBUG, S9X_DEBUG_OUTPUT, buf);
 				if (trace != NULL)
 					fclose(trace);
@@ -3547,7 +3547,7 @@ static void Op42 (void)
 
 			_splitpath(Memory.ROMFilename, drive, dir, def, ext);
 			snprintf(filename, PATH_MAX, "%s%s%s-%06X.wdm", S9xGetDirectory(SNAPSHOT_DIR), SLASH_STR, def, Registers.PBPC & 0xffffff);
-			sprintf(def, "WDM Snapshot at $%02X:%04X: %s", Registers.PB, Registers.PCw, filename);
+			sprintf(def, "WDM Snapshot at $%02X:%04" PRIX32 ": %s", Registers.PB, Registers.PCw, filename);
 			S9xMessage(S9X_DEBUG, S9X_DEBUG_OUTPUT, def);
 			S9xFreezeGame(filename);
 

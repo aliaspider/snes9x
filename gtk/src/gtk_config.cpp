@@ -104,7 +104,7 @@ static void
 xml_out_int (xmlTextWriterPtr xml, const char *name, int value)
 {
     char string[1024];
-    snprintf (string, 1024, "%d", value);
+    snprintf (string, 1024, "%" PRId32 "", value);
 
     xmlTextWriterStartElement (xml, BAD_CAST "option");
     xmlTextWriterWriteAttribute (xml, BAD_CAST "name", BAD_CAST name);
@@ -423,23 +423,23 @@ Snes9xConfig::save_config_file (void)
     for (int i = 0; joystick[i]; i++)
     {
         xmlTextWriterStartElement (xml, BAD_CAST "calibration");
-        snprintf (buffer, 256, "%d", i);
+        snprintf (buffer, 256, "%" PRId32 "", i);
         xmlTextWriterWriteAttribute (xml, BAD_CAST "joystick", BAD_CAST buffer);
 
         for (int j = 0; j < joystick[i]->num_axes; j++)
         {
             xmlTextWriterStartElement (xml, BAD_CAST "axis");
 
-            snprintf (buffer, 256, "%d", j);
+            snprintf (buffer, 256, "%" PRId32 "", j);
             xmlTextWriterWriteAttribute (xml, BAD_CAST "number", BAD_CAST buffer);
 
-            snprintf (buffer, 256, "%d", joystick[i]->calibration[j].min);
+            snprintf (buffer, 256, "%" PRId32 "", joystick[i]->calibration[j].min);
             xmlTextWriterWriteAttribute (xml, BAD_CAST "min", BAD_CAST buffer);
 
-            snprintf (buffer, 256, "%d", joystick[i]->calibration[j].max);
+            snprintf (buffer, 256, "%" PRId32 "", joystick[i]->calibration[j].max);
             xmlTextWriterWriteAttribute (xml, BAD_CAST "max", BAD_CAST buffer);
 
-            snprintf (buffer, 256, "%d", joystick[i]->calibration[j].center);
+            snprintf (buffer, 256, "%" PRId32 "", joystick[i]->calibration[j].center);
             xmlTextWriterWriteAttribute (xml, BAD_CAST "center", BAD_CAST buffer);
 
             xmlTextWriterEndElement (xml); /* axis */
@@ -454,7 +454,7 @@ Snes9xConfig::save_config_file (void)
         Binding *joypad = (Binding *) &pad[i];
 
         xmlTextWriterStartElement (xml, BAD_CAST "joypad");
-        snprintf (buffer, 256, "%d", i);
+        snprintf (buffer, 256, "%" PRId32 "", i);
         xmlTextWriterWriteAttribute (xml, BAD_CAST "number", BAD_CAST buffer);
 
         for (int j = 0; j < NUM_JOYPAD_LINKS; j++)
@@ -1234,7 +1234,7 @@ Snes9xConfig::rebind_keys (void)
         {
             snprintf (buf,
                       256,
-                      "Joypad%d %s",
+                      "Joypad%" PRId32 " %s",
                       (joypad_i % 5) + 1,
                       b_links[button_i].snes9x_name);
 

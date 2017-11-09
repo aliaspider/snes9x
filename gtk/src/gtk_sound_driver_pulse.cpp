@@ -78,7 +78,7 @@ S9xPulseSoundDriver::open_device (void)
 
     printf ("PulseAudio sound driver initializing...\n");
 
-    printf ("    --> (%dhz, %s %s, %dms)...",
+    printf ("    --> (%" PRId32 "hz, %s %s, %" PRId32 "ms)...",
             Settings.SoundPlaybackRate,
             Settings.SixteenBitSound ? "16-bit" : "8-bit",
             Settings.Stereo ? "Stereo" : "Mono",

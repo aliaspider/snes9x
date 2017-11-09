@@ -1029,7 +1029,7 @@ Snes9xPreferences::show (void)
 
             snprintf (size_string,
                       256,
-                      "%dx%d",
+                      "%" PRId32 "x%" PRId32 "",
                       config->xrr_sizes[i].width,
                       config->xrr_sizes[i].height);
 

@@ -2,7 +2,7 @@
 TARGET = snes9x_module.a
 DEBUG = 0
 
-platform = linux
+platform ?= linux
 
 BUILD_DIR = objs/$(platform)
 
@@ -11,6 +11,30 @@ ifeq ($(DEBUG),1)
 endif
 
 all: $(TARGET)
+
+ifeq ($(platform),3ds)
+   ifeq ($(strip $(DEVKITPRO)),)
+      $(error "Please set DEVKITPRO in your environment. export DEVKITPRO=<path to>devkitpro")
+   endif
+   CFLAGS += -I$(DEVKITPRO)/libctru/include -I$(DEVKITPRO)/portlibs/armv6k/include
+   LIBDIRS := -L. -L$(DEVKITPRO)/libctru/lib -L $(DEVKITPRO)/portlibs/armv6k/lib
+   ARCH  := -march=armv6k -mtune=mpcore -mfloat-abi=hard -marm -mfpu=vfp -mtp=soft
+   CFLAGS += -mword-relocations -ffast-math -Werror=implicit-function-declaration $(ARCH)
+   CFLAGS += -DARM11 -D_3DS
+   CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
+   CFLAGS   += -std=gnu99 -ffast-math
+   ASFLAGS	:=  -g $(ARCH) -O3
+   #PATH := $(PATH):$(DEVKITPRO)/devkitARM/bin
+
+   CC      := arm-none-eabi-gcc
+   CXX     := arm-none-eabi-g++
+   AS      := arm-none-eabi-as
+   AR      := arm-none-eabi-ar
+   OBJCOPY := arm-none-eabi-objcopy
+   STRIP   := arm-none-eabi-strip
+   NM      := arm-none-eabi-nm
+   LD      := $(CXX)
+endif
 
 OBJS :=
 OBJS += interface.o

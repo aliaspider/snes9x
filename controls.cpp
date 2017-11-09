@@ -1743,11 +1743,11 @@ bool S9xMapButton (uint32 id, s9xcommand_t mapping, bool poll)
 	t = maptype(S9xGetMapping(id).type);
 
 	if (t != MAP_NONE && t != MAP_BUTTON)
-		fprintf(stderr, "WARNING: Remapping ID 0x%08x from %s to button\n", id, maptypename(t));
+		fprintf(stderr, "WARNING: Remapping ID 0x%08" PRIx32 " from %s to button\n", id, maptypename(t));
 
 	if (id >= PseudoPointerBase)
 	{
-		fprintf(stderr, "ERROR: Refusing to map pseudo-pointer #%d as a button\n", id - PseudoPointerBase);
+		fprintf(stderr, "ERROR: Refusing to map pseudo-pointer #%" PRId32 " as a button\n", id - PseudoPointerBase);
 		return (false);
 	}
 
@@ -1756,7 +1756,7 @@ bool S9xMapButton (uint32 id, s9xcommand_t mapping, bool poll)
 	if (poll)
 	{
 		if (id >= PseudoButtonBase)
-			fprintf(stderr, "INFO: Ignoring attempt to set pseudo-button #%d to polling\n", id - PseudoButtonBase);
+			fprintf(stderr, "INFO: Ignoring attempt to set pseudo-button #%" PRId32 " to polling\n", id - PseudoButtonBase);
 		else
 		{
 			switch (mapping.type)
@@ -1807,7 +1807,7 @@ void S9xReportButton (uint32 id, bool pressed)
 
 	if (maptype(keymap[id].type) != MAP_BUTTON)
 	{
-		fprintf(stderr, "ERROR: S9xReportButton called on %s ID 0x%08x\n", maptypename(maptype(keymap[id].type)), id);
+		fprintf(stderr, "ERROR: S9xReportButton called on %s ID 0x%08" PRIx32 "\n", maptypename(maptype(keymap[id].type)), id);
 		return;
 	}
 
@@ -1844,11 +1844,11 @@ bool S9xMapPointer (uint32 id, s9xcommand_t mapping, bool poll)
 	t = maptype(S9xGetMapping(id).type);
 
 	if (t != MAP_NONE && t != MAP_POINTER)
-		fprintf(stderr, "WARNING: Remapping ID 0x%08x from %s to pointer\n", id, maptypename(t));
+		fprintf(stderr, "WARNING: Remapping ID 0x%08" PRIx32 " from %s to pointer\n", id, maptypename(t));
 
 	if (id < PseudoPointerBase && id >= PseudoButtonBase)
 	{
-		fprintf(stderr, "ERROR: Refusing to map pseudo-button #%d as a pointer\n", id - PseudoButtonBase);
+		fprintf(stderr, "ERROR: Refusing to map pseudo-button #%" PRId32 " as a pointer\n", id - PseudoButtonBase);
 		return (false);
 	}
 
@@ -1890,7 +1890,7 @@ bool S9xMapPointer (uint32 id, s9xcommand_t mapping, bool poll)
 	if (poll)
 	{
 		if (id >= PseudoPointerBase)
-			fprintf(stderr, "INFO: Ignoring attempt to set pseudo-pointer #%d to polling\n", id - PseudoPointerBase);
+			fprintf(stderr, "INFO: Ignoring attempt to set pseudo-pointer #%" PRId32 " to polling\n", id - PseudoPointerBase);
 		else
 		{
 			switch (mapping.type)
@@ -1934,7 +1934,7 @@ void S9xReportPointer (uint32 id, int16 x, int16 y)
 
 	if (maptype(keymap[id].type) != MAP_POINTER)
 	{
-		fprintf(stderr, "ERROR: S9xReportPointer called on %s ID 0x%08x\n", maptypename(maptype(keymap[id].type)), id);
+		fprintf(stderr, "ERROR: S9xReportPointer called on %s ID 0x%08" PRIx32 "\n", maptypename(maptype(keymap[id].type)), id);
 		return;
 	}
 
@@ -1965,11 +1965,11 @@ bool S9xMapAxis (uint32 id, s9xcommand_t mapping, bool poll)
 	t = maptype(S9xGetMapping(id).type);
 
 	if (t != MAP_NONE && t != MAP_AXIS)
-		fprintf(stderr, "WARNING: Remapping ID 0x%08x from %s to axis\n", id, maptypename(t));
+		fprintf(stderr, "WARNING: Remapping ID 0x%08" PRIx32 " from %s to axis\n", id, maptypename(t));
 
 	if (id >= PseudoPointerBase)
 	{
-		fprintf(stderr, "ERROR: Refusing to map pseudo-pointer #%d as an axis\n", id - PseudoPointerBase);
+		fprintf(stderr, "ERROR: Refusing to map pseudo-pointer #%" PRId32 " as an axis\n", id - PseudoPointerBase);
 		return (false);
 	}
 
@@ -2011,7 +2011,7 @@ void S9xReportAxis (uint32 id, int16 value)
 
 	if (maptype(keymap[id].type) != MAP_AXIS)
 	{
-		fprintf(stderr, "ERROR: S9xReportAxis called on %s ID 0x%08x\n", maptypename(maptype(keymap[id].type)), id);
+		fprintf(stderr, "ERROR: S9xReportAxis called on %s ID 0x%08" PRIx32 "\n", maptypename(maptype(keymap[id].type)), id);
 		return;
 	}
 
@@ -2254,7 +2254,7 @@ void S9xApplyCommand (s9xcommand_t cmd, int16 data1, int16 data2)
 							S9xSetInfoString("Auto frame skip");
 						else
 						{
-							sprintf(buf, "Frame skip: %d", Settings.SkipFrames - 1);
+							sprintf(buf, "Frame skip: %" PRId32 "", Settings.SkipFrames - 1);
 							S9xSetInfoString(buf);
 						}
 
@@ -2271,7 +2271,7 @@ void S9xApplyCommand (s9xcommand_t cmd, int16 data1, int16 data2)
 							S9xSetInfoString("Auto frame skip");
 						else
 						{
-							sprintf(buf, "Frame skip: %d", Settings.SkipFrames - 1);
+							sprintf(buf, "Frame skip: %" PRId32 "", Settings.SkipFrames - 1);
 							S9xSetInfoString(buf);
 						}
 
@@ -2283,7 +2283,7 @@ void S9xApplyCommand (s9xcommand_t cmd, int16 data1, int16 data2)
 						else
 						if (Settings.TurboSkipFrames < 200)
 							Settings.TurboSkipFrames += 5;
-						sprintf(buf, "Turbo frame skip: %d", Settings.TurboSkipFrames);
+						sprintf(buf, "Turbo frame skip: %" PRId32 "", Settings.TurboSkipFrames);
 						S9xSetInfoString(buf);
 						break;
 
@@ -2293,20 +2293,20 @@ void S9xApplyCommand (s9xcommand_t cmd, int16 data1, int16 data2)
 						else
 						if (Settings.TurboSkipFrames > 0)
 							Settings.TurboSkipFrames -= 1;
-						sprintf(buf, "Turbo frame skip: %d", Settings.TurboSkipFrames);
+						sprintf(buf, "Turbo frame skip: %" PRId32 "", Settings.TurboSkipFrames);
 						S9xSetInfoString(buf);
 						break;
 
 					case IncFrameTime: // Increase emulated frame time by 1ms
 						Settings.FrameTime += 1000;
-						sprintf(buf, "Emulated frame time: %dms", Settings.FrameTime / 1000);
+						sprintf(buf, "Emulated frame time: %" PRId32 "ms", Settings.FrameTime / 1000);
 						S9xSetInfoString(buf);
 						break;
 
 					case DecFrameTime: // Decrease emulated frame time by 1ms
 						if (Settings.FrameTime >= 1000)
 							Settings.FrameTime -= 1000;
-						sprintf(buf, "Emulated frame time: %dms", Settings.FrameTime / 1000);
+						sprintf(buf, "Emulated frame time: %" PRId32 "ms", Settings.FrameTime / 1000);
 						S9xSetInfoString(buf);
 						break;
 
@@ -2513,7 +2513,7 @@ void S9xApplyCommand (s9xcommand_t cmd, int16 data1, int16 data2)
 						}
 						else
 						{
-							sprintf(buf + i, "Joypad%d", newcontrollers[0] - JOYPAD0 + 1);
+							sprintf(buf + i, "Joypad%" PRId32 "", newcontrollers[0] - JOYPAD0 + 1);
 							i += 7;
 						}
 
@@ -2522,7 +2522,7 @@ void S9xApplyCommand (s9xcommand_t cmd, int16 data1, int16 data2)
 						if (newcontrollers[1] == NONE)
 							strcpy(buf + i, "<none>");
 						else
-							sprintf(buf + i, "Joypad%d", newcontrollers[1] - JOYPAD0 + 1);
+							sprintf(buf + i, "Joypad%" PRId32 "", newcontrollers[1] - JOYPAD0 + 1);
 
 						S9xSetInfoString(buf);
 						break;
@@ -2530,7 +2530,7 @@ void S9xApplyCommand (s9xcommand_t cmd, int16 data1, int16 data2)
 					case SeekToFrame:
 						if (S9xMovieActive())
 						{
-							sprintf(buf, "Select frame number (current: %d)", S9xMovieGetFrameCounter());
+							sprintf(buf, "Select frame number (current: %" PRId32 ")", S9xMovieGetFrameCounter());
 							const char	*frameno = S9xStringInput(buf);
 							if (!frameno)
 								return;

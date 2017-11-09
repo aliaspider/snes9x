@@ -463,7 +463,7 @@ static void DSP1_Op00 (void)
 	DSP1.Op00Result = DSP1.Op00Multiplicand * DSP1.Op00Multiplier >> 15;
 
 #ifdef DebugDSP1
-	Log_Message("OP00 MULT %d*%d/32768=%d", DSP1.Op00Multiplicand, DSP1.Op00Multiplier, DSP1.Op00Result);
+	Log_Message("OP00 MULT %" PRId32 "*%" PRId32 "/32768=%" PRId32 "", DSP1.Op00Multiplicand, DSP1.Op00Multiplier, DSP1.Op00Result);
 #endif
 }
 
@@ -473,7 +473,7 @@ static void DSP1_Op20 (void)
 	DSP1.Op20Result++;
 
 #ifdef DebugDSP1
-	Log_Message("OP20 MULT %d*%d/32768=%d", DSP1.Op20Multiplicand, DSP1.Op20Multiplier, DSP1.Op20Result);
+	Log_Message("OP20 MULT %" PRId32 "*%" PRId32 "/32768=%" PRId32 "", DSP1.Op20Multiplicand, DSP1.Op20Multiplier, DSP1.Op20Result);
 #endif
 }
 
@@ -537,7 +537,7 @@ static void DSP1_Op10 (void)
 	DSP1_Inverse(DSP1.Op10Coefficient, DSP1.Op10Exponent, &DSP1.Op10CoefficientR, &DSP1.Op10ExponentR);
 
 #ifdef DebugDSP1
-	Log_Message("OP10 INV %d*2^%d = %d*2^%d", DSP1.Op10Coefficient, DSP1.Op10Exponent, DSP1.Op10CoefficientR, DSP1.Op10ExponentR);
+	Log_Message("OP10 INV %" PRId32 "*2^%" PRId32 " = %" PRId32 "*2^%" PRId32 "", DSP1.Op10Coefficient, DSP1.Op10Exponent, DSP1.Op10CoefficientR, DSP1.Op10ExponentR);
 #endif
 }
 
@@ -1026,7 +1026,7 @@ static void DSP1_Op0D (void)
 	DSP1.Op0DU = (DSP1.Op0DX * DSP1.matrixA[2][0] >> 15) + (DSP1.Op0DY * DSP1.matrixA[2][1] >> 15) + (DSP1.Op0DZ * DSP1.matrixA[2][2] >> 15);
 
 #ifdef DebugDSP1
-	Log_Message("OP0D X: %d Y: %d Z: %d / F: %d L: %d U: %d", DSP1.Op0DX, DSP1.Op0DY, DSP1.Op0DZ, DSP1.Op0DF, DSP1.Op0DL, DSP1.Op0DU);
+	Log_Message("OP0D X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 " / F: %" PRId32 " L: %" PRId32 " U: %" PRId32 "", DSP1.Op0DX, DSP1.Op0DY, DSP1.Op0DZ, DSP1.Op0DF, DSP1.Op0DL, DSP1.Op0DU);
 #endif
 }
 
@@ -1037,7 +1037,7 @@ static void DSP1_Op1D (void)
 	DSP1.Op1DU = (DSP1.Op1DX * DSP1.matrixB[2][0] >> 15) + (DSP1.Op1DY * DSP1.matrixB[2][1] >> 15) + (DSP1.Op1DZ * DSP1.matrixB[2][2] >> 15);
 
 #ifdef DebugDSP1
-	Log_Message("OP1D X: %d Y: %d Z: %d / F: %d L: %d U: %d", DSP1.Op1DX, DSP1.Op1DY, DSP1.Op1DZ, DSP1.Op1DF, DSP1.Op1DL, DSP1.Op1DU);
+	Log_Message("OP1D X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 " / F: %" PRId32 " L: %" PRId32 " U: %" PRId32 "", DSP1.Op1DX, DSP1.Op1DY, DSP1.Op1DZ, DSP1.Op1DF, DSP1.Op1DL, DSP1.Op1DU);
 #endif
 }
 
@@ -1048,7 +1048,7 @@ static void DSP1_Op2D (void)
 	DSP1.Op2DU = (DSP1.Op2DX * DSP1.matrixC[2][0] >> 15) + (DSP1.Op2DY * DSP1.matrixC[2][1] >> 15) + (DSP1.Op2DZ * DSP1.matrixC[2][2] >> 15);
 
 #ifdef DebugDSP1
-	Log_Message("OP2D X: %d Y: %d Z: %d / F: %d L: %d U: %d", DSP1.Op2DX, DSP1.Op2DY, DSP1.Op2DZ, DSP1.Op2DF, DSP1.Op2DL, DSP1.Op2DU);
+	Log_Message("OP2D X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 " / F: %" PRId32 " L: %" PRId32 " U: %" PRId32 "", DSP1.Op2DX, DSP1.Op2DY, DSP1.Op2DZ, DSP1.Op2DF, DSP1.Op2DL, DSP1.Op2DU);
 #endif
 }
 
@@ -1059,7 +1059,7 @@ static void DSP1_Op03 (void)
 	DSP1.Op03Z = (DSP1.Op03F * DSP1.matrixA[0][2] >> 15) + (DSP1.Op03L * DSP1.matrixA[1][2] >> 15) + (DSP1.Op03U * DSP1.matrixA[2][2] >> 15);
 
 #ifdef DebugDSP1
-	Log_Message("OP03 F: %d L: %d U: %d / X: %d Y: %d Z: %d", DSP1.Op03F, DSP1.Op03L, DSP1.Op03U, DSP1.Op03X, DSP1.Op03Y, DSP1.Op03Z);
+	Log_Message("OP03 F: %" PRId32 " L: %" PRId32 " U: %" PRId32 " / X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 "", DSP1.Op03F, DSP1.Op03L, DSP1.Op03U, DSP1.Op03X, DSP1.Op03Y, DSP1.Op03Z);
 #endif
 }
 
@@ -1070,7 +1070,7 @@ static void DSP1_Op13 (void)
 	DSP1.Op13Z = (DSP1.Op13F * DSP1.matrixB[0][2] >> 15) + (DSP1.Op13L * DSP1.matrixB[1][2] >> 15) + (DSP1.Op13U * DSP1.matrixB[2][2] >> 15);
 
 #ifdef DebugDSP1
-	Log_Message("OP13 F: %d L: %d U: %d / X: %d Y: %d Z: %d", DSP1.Op13F, DSP1.Op13L, DSP1.Op13U, DSP1.Op13X, DSP1.Op13Y, DSP1.Op13Z);
+	Log_Message("OP13 F: %" PRId32 " L: %" PRId32 " U: %" PRId32 " / X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 "", DSP1.Op13F, DSP1.Op13L, DSP1.Op13U, DSP1.Op13X, DSP1.Op13Y, DSP1.Op13Z);
 #endif
 }
 
@@ -1081,7 +1081,7 @@ static void DSP1_Op23 (void)
 	DSP1.Op23Z = (DSP1.Op23F * DSP1.matrixC[0][2] >> 15) + (DSP1.Op23L * DSP1.matrixC[1][2] >> 15) + (DSP1.Op23U * DSP1.matrixC[2][2] >> 15);
 
 #ifdef DebugDSP1
-	Log_Message("OP23 F: %d L: %d U: %d / X: %d Y: %d Z: %d", DSP1.Op23F, DSP1.Op23L, DSP1.Op23U, DSP1.Op23X, DSP1.Op23Y, DSP1.Op23Z);
+	Log_Message("OP23 F: %" PRId32 " L: %" PRId32 " U: %" PRId32 " / X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 "", DSP1.Op23F, DSP1.Op23L, DSP1.Op23U, DSP1.Op23X, DSP1.Op23Y, DSP1.Op23Z);
 #endif
 }
 
@@ -1165,8 +1165,8 @@ static void DSP1_Op1B (void)
 	DSP1.Op1BS = (DSP1.Op1BX * DSP1.matrixB[0][0] + DSP1.Op1BY * DSP1.matrixB[0][1] + DSP1.Op1BZ * DSP1.matrixB[0][2]) >> 15;
 
 #ifdef DebugDSP1
-	Log_Message("OP1B X: %d Y: %d Z: %d S: %d", DSP1.Op1BX, DSP1.Op1BY, DSP1.Op1BZ, DSP1.Op1BS);
-	Log_Message("     MX: %d MY: %d MZ: %d Scale: %d", (int16) (DSP1.matrixB[0][0] * 100), (int16) (DSP1.matrixB[0][1] * 100), (int16) (DSP1.matrixB[0][2] * 100), (int16) (DSP1.Op1BS * 100));
+	Log_Message("OP1B X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 " S: %" PRId32 "", DSP1.Op1BX, DSP1.Op1BY, DSP1.Op1BZ, DSP1.Op1BS);
+	Log_Message("     MX: %" PRId32 " MY: %" PRId32 " MZ: %" PRId32 " Scale: %" PRId32 "", (int16) (DSP1.matrixB[0][0] * 100), (int16) (DSP1.matrixB[0][1] * 100), (int16) (DSP1.matrixB[0][2] * 100), (int16) (DSP1.Op1BS * 100));
 #endif
 }
 
@@ -1186,8 +1186,8 @@ static void DSP1_Op08 (void)
 	DSP1.Op08Lh = (op08Size >> 16) & 0xffff;
 
 #ifdef DebugDSP1
-	Log_Message("OP08 %d,%d,%d", DSP1.Op08X, DSP1.Op08Y, DSP1.Op08Z);
-	Log_Message("OP08 ((OP08X^2)+(OP08Y^2)+(OP08Z^2))=%x", op08Size);
+	Log_Message("OP08 %" PRId32 ",%" PRId32 ",%" PRId32 "", DSP1.Op08X, DSP1.Op08Y, DSP1.Op08Z);
+	Log_Message("OP08 ((OP08X^2)+(OP08Y^2)+(OP08Z^2))=%" PRIx32 "", op08Size);
 #endif
 }
 
@@ -1196,7 +1196,7 @@ static void DSP1_Op18 (void)
 	DSP1.Op18D = (DSP1.Op18X * DSP1.Op18X + DSP1.Op18Y * DSP1.Op18Y + DSP1.Op18Z * DSP1.Op18Z - DSP1.Op18R * DSP1.Op18R) >> 15;
 
 #ifdef DebugDSP1
-	Log_Message("OP18 X: %d Y: %d Z: %d R: %D DIFF %d", DSP1.Op18X, DSP1.Op18Y, DSP1.Op38Z, DSP1.Op18D);
+	Log_Message("OP18 X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 " R: %D DIFF %" PRId32 "", DSP1.Op18X, DSP1.Op18Y, DSP1.Op38Z, DSP1.Op18D);
 #endif
 }
 
@@ -1206,7 +1206,7 @@ static void DSP1_Op38 (void)
 	DSP1.Op38D++;
 
 #ifdef DebugDSP1
-	Log_Message("OP38 X: %d Y: %d Z: %d R: %D DIFF %d", DSP1.Op38X, DSP1.Op38Y, DSP1.Op38Z, DSP1.Op38D);
+	Log_Message("OP38 X: %" PRId32 " Y: %" PRId32 " Z: %" PRId32 " R: %D DIFF %" PRId32 "", DSP1.Op38X, DSP1.Op38Y, DSP1.Op38Z, DSP1.Op38D);
 #endif
 }
 
@@ -1234,8 +1234,8 @@ static void DSP1_Op28 (void)
 	}
 
 #ifdef DebugDSP1
-	Log_Message("OP28 X:%d Y:%d Z:%d", DSP1.Op28X, DSP1.Op28Y, DSP1.Op28Z);
-	Log_Message("OP28 Vector Length %d", DSP1.Op28R);
+	Log_Message("OP28 X:%" PRId32 " Y:%" PRId32 " Z:%" PRId32 "", DSP1.Op28X, DSP1.Op28Y, DSP1.Op28Z);
+	Log_Message("OP28 Vector Length %" PRId32 "", DSP1.Op28R);
 #endif
 }
 
@@ -1260,7 +1260,7 @@ static void DSP1_Op1C (void)
 	DSP1.Op1CZAR = DSP1.Op1CZ1;
 
 #ifdef DebugDSP1
-	Log_Message("OP1C Apply Matrix CX:%d CY:%d CZ", DSP1.Op1CXAR, DSP1.Op1CYAR, DSP1.Op1CZAR);
+	Log_Message("OP1C Apply Matrix CX:%" PRId32 " CY:%" PRId32 " CZ", DSP1.Op1CXAR, DSP1.Op1CYAR, DSP1.Op1CZAR);
 #endif
 }
 
@@ -1269,7 +1269,7 @@ static void DSP1_Op0F (void)
 	DSP1.Op0FPass = 0x0000;
 
 #ifdef DebugDSP1
-	Log_Message("OP0F RAM Test Pass:%d", DSP1.Op0FPass);
+	Log_Message("OP0F RAM Test Pass:%" PRId32 "", DSP1.Op0FPass);
 #endif
 }
 

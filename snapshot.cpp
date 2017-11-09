@@ -1320,7 +1320,7 @@ bool8 S9xUnfreezeGame (const char *filename)
 
 void S9xFreezeToStream (STREAM stream)
 {
-	char	buffer[PATH_MAX + 16];
+	char	buffer[PATH_MAX + 32];
 	uint8	*soundsnapshot = new uint8[SPC_SAVE_STATE_BLOCK_SIZE];
 
 	sprintf(buffer, "%s:%04d\n", SNAPSHOT_MAGIC, SNAPSHOT_VERSION);

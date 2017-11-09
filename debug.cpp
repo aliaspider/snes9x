@@ -458,7 +458,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 	uint8	Size = 0;
 
 	S9xOpcode = S9xDebugGetByte((Bank << 16) + Address);
-	sprintf(Line, "$%02X:%04X %02X ", Bank, Address, S9xOpcode);
+	sprintf(Line, "$%02X:%04" PRIX32 " %02X ", Bank, Address, S9xOpcode);
 
 	Operant[0] = S9xDebugGetByte((Bank << 16) + Address + 1);
 	Operant[1] = S9xDebugGetByte((Bank << 16) + Address + 2);
@@ -549,7 +549,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Address;
 			Word += SByte;
 			Word += 2;
-			sprintf(Line, "%-32s[$%04X]", Line, Word);
+			sprintf(Line, "%-32s[$%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -566,7 +566,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Address;
 			Word += SWord;
 			Word += 3;
-			sprintf(Line, "%-32s[$%04X]", Line, Word);
+			sprintf(Line, "%-32s[$%04" PRIX32 "]", Line, Word);
 			Size = 3;
 			break;
 
@@ -579,7 +579,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 					Operant[0]);
 			Word = Operant[0];
 			Word += Registers.D.W;
-			sprintf(Line, "%-32s[$00:%04X]", Line, Word);
+			sprintf(Line, "%-32s[$00:%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -593,7 +593,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Operant[0];
 			Word += Registers.D.W;
 			Word += Registers.X.W;
-			sprintf(Line, "%-32s[$00:%04X]", Line, Word);
+			sprintf(Line, "%-32s[$00:%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -607,7 +607,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Operant[0];
 			Word += Registers.D.W;
 			Word += Registers.Y.W;
-			sprintf(Line, "%-32s[$00:%04X]", Line, Word);
+			sprintf(Line, "%-32s[$00:%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -621,7 +621,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Operant[0];
 			Word += Registers.D.W;
 			Word = S9xDebugGetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.DB, Word);
 			Size = 2;
 			break;
 
@@ -636,7 +636,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word += Registers.D.W;
 			Word += Registers.X.W;
 			Word = S9xDebugGetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.DB, Word);
 			Size = 2;
 			break;
 
@@ -651,7 +651,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word += Registers.D.W;
 			Word = S9xDebugGetWord(Word);
 			Word += Registers.Y.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.DB, Word);
 			Size = 2;
 			break;
 
@@ -666,7 +666,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word += Registers.D.W;
 			Byte = S9xDebugGetByte(Word + 2);
 			Word = S9xDebugGetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Byte, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Byte, Word);
 			Size = 2;
 			break;
 
@@ -682,7 +682,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Byte = S9xDebugGetByte(Word + 2);
 			Word = S9xDebugGetWord(Word);
 			Word += Registers.Y.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Byte, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Byte, Word);
 			Size = 2;
 			break;
 
@@ -696,7 +696,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[1],
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.DB, Word);
 			Size = 3;
 			break;
 
@@ -711,7 +711,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
 			Word += Registers.X.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.DB, Word);
 			Size = 3;
 			break;
 
@@ -726,7 +726,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
 			Word += Registers.Y.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.DB, Word);
 			Size = 3;
 			break;
 
@@ -742,7 +742,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[1],
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Operant[2], Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Operant[2], Word);
 			Size = 4;
 			break;
 
@@ -759,7 +759,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
 			Word += Registers.X.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Operant[2], Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Operant[2], Word);
 			Size = 4;
 			break;
 
@@ -772,7 +772,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = Registers.S.W;
 			Word += Operant[0];
-			sprintf(Line, "%-32s[$00:%04X]", Line, Word);
+			sprintf(Line, "%-32s[$00:%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -787,7 +787,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word += Operant[0];
 			Word = S9xDebugGetWord(Word);
 			Word += Registers.Y.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.DB, Word);
 			Size = 2;
 			break;
 
@@ -802,7 +802,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
 			Word = S9xDebugGetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.PB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.PB, Word);
 			Size = 3;
 			break;
 
@@ -818,7 +818,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = (Operant[1] << 8) | Operant[0];
 			Byte = S9xDebugGetByte(Word + 2);
 			Word = S9xDebugGetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Byte, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Byte, Word);
 			Size = 3;
 			break;
 
@@ -834,7 +834,7 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = (Operant[1] << 8) | Operant[0];
 			Word += Registers.X.W;
 			Word = S9xDebugGetWord(ICPU.ShiftedPB + Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Registers.PB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Registers.PB, Word);
 			Size = 3;
 			break;
 
@@ -880,12 +880,12 @@ static uint8 debug_cpu_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Operant[0];
 			Word += Registers.D.W;
 			Word = S9xDebugGetWord(Word);
-			sprintf(Line, "%-32s[$%04X]", Line, Word);
+			sprintf(Line, "%-32s[$%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 	}
 
-	sprintf(Line, "%-44s A:%04X X:%04X Y:%04X D:%04X DB:%02X S:%04X P:%c%c%c%c%c%c%c%c%c HC:%04ld VC:%03ld FC:%02d %03x",
+	sprintf(Line, "%-44s A:%04" PRIX32 " X:%04" PRIX32 " Y:%04" PRIX32 " D:%04" PRIX32 " DB:%02X S:%04" PRIX32 " P:%c%c%c%c%c%c%c%c%c HC:%04ld VC:%03ld FC:%02d %03x",
 	        Line, Registers.A.W, Registers.X.W, Registers.Y.W,
 	        Registers.D.W, Registers.DB, Registers.S.W,
 	        CheckEmulation() ? 'E' : 'e',
@@ -916,7 +916,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 	uint8	Size = 0;
 
 	S9xOpcode = S9xDebugSA1GetByte((Bank << 16) + Address);
-	sprintf(Line, "$%02X:%04X %02X ", Bank, Address, S9xOpcode);
+	sprintf(Line, "$%02X:%04" PRIX32 " %02X ", Bank, Address, S9xOpcode);
 
 	Operant[0] = S9xDebugSA1GetByte((Bank << 16) + Address + 1);
 	Operant[1] = S9xDebugSA1GetByte((Bank << 16) + Address + 2);
@@ -1007,7 +1007,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Address;
 			Word += SByte;
 			Word += 2;
-			sprintf(Line, "%-32s[$%04X]", Line, Word);
+			sprintf(Line, "%-32s[$%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -1024,7 +1024,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Address;
 			Word += SWord;
 			Word += 3;
-			sprintf(Line, "%-32s[$%04X]", Line, Word);
+			sprintf(Line, "%-32s[$%04" PRIX32 "]", Line, Word);
 			Size = 3;
 			break;
 
@@ -1037,7 +1037,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = Operant[0];
 			Word += SA1Registers.D.W;
-			sprintf(Line, "%-32s[$00:%04X]", Line, Word);
+			sprintf(Line, "%-32s[$00:%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -1051,7 +1051,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Operant[0];
 			Word += SA1Registers.D.W;
 			Word += SA1Registers.X.W;
-			sprintf(Line, "%-32s[$00:%04X]", Line, Word);
+			sprintf(Line, "%-32s[$00:%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -1065,7 +1065,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Operant[0];
 			Word += SA1Registers.D.W;
 			Word += SA1Registers.Y.W;
-			sprintf(Line, "%-32s[$00:%04X]", Line, Word);
+			sprintf(Line, "%-32s[$00:%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -1079,7 +1079,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = Operant[0];
 			Word += SA1Registers.D.W;
 			Word = S9xDebugSA1GetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.DB, Word);
 			Size = 2;
 			break;
 
@@ -1094,7 +1094,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word += SA1Registers.D.W;
 			Word += SA1Registers.X.W;
 			Word = S9xDebugSA1GetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.DB, Word);
 			Size = 2;
 			break;
 
@@ -1109,7 +1109,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word += SA1Registers.D.W;
 			Word = S9xDebugSA1GetWord(Word);
 			Word += SA1Registers.Y.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.DB, Word);
 			Size = 2;
 			break;
 
@@ -1124,7 +1124,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word += SA1Registers.D.W;
 			Byte = S9xDebugSA1GetByte(Word + 2);
 			Word = S9xDebugSA1GetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Byte, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Byte, Word);
 			Size = 2;
 			break;
 
@@ -1140,7 +1140,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Byte = S9xDebugSA1GetByte(Word + 2);
 			Word = S9xDebugSA1GetWord(Word);
 			Word += SA1Registers.Y.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Byte, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Byte, Word);
 			Size = 2;
 			break;
 
@@ -1154,7 +1154,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[1],
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.DB, Word);
 			Size = 3;
 			break;
 
@@ -1169,7 +1169,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
 			Word += SA1Registers.X.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.DB, Word);
 			Size = 3;
 			break;
 
@@ -1184,7 +1184,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
 			Word += SA1Registers.Y.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.DB, Word);
 			Size = 3;
 			break;
 
@@ -1200,7 +1200,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[1],
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Operant[2], Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Operant[2], Word);
 			Size = 4;
 			break;
 
@@ -1217,7 +1217,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
 			Word += SA1Registers.X.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Operant[2], Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Operant[2], Word);
 			Size = 4;
 			break;
 
@@ -1230,7 +1230,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = SA1Registers.S.W;
 			Word += Operant[0];
-			sprintf(Line, "%-32s[$00:%04X]", Line, Word);
+			sprintf(Line, "%-32s[$00:%04" PRIX32 "]", Line, Word);
 			Size = 2;
 			break;
 
@@ -1245,7 +1245,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word += Operant[0];
 			Word = S9xDebugSA1GetWord(Word);
 			Word += SA1Registers.Y.W;
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.DB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.DB, Word);
 			Size = 2;
 			break;
 
@@ -1260,7 +1260,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			        Operant[0]);
 			Word = (Operant[1] << 8) | Operant[0];
 			Word = S9xDebugSA1GetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.PB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.PB, Word);
 			Size = 3;
 			break;
 
@@ -1276,7 +1276,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = (Operant[1] << 8) | Operant[0];
 			Byte = S9xDebugSA1GetByte(Word + 2);
 			Word = S9xDebugSA1GetWord(Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, Byte, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, Byte, Word);
 			Size = 3;
 			break;
 
@@ -1292,7 +1292,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			Word = (Operant[1] << 8) | Operant[0];
 			Word += SA1Registers.X.W;
 			Word = S9xDebugSA1GetWord(SA1.ShiftedPB + Word);
-			sprintf(Line, "%-32s[$%02X:%04X]", Line, SA1Registers.PB, Word);
+			sprintf(Line, "%-32s[$%02X:%04" PRIX32 "]", Line, SA1Registers.PB, Word);
 			Size = 3;
 			break;
 
@@ -1315,7 +1315,7 @@ static uint8 debug_sa1_op_print (char *Line, uint8 Bank, uint16 Address)
 			break;
 	}
 
-	sprintf(Line, "%-44s A:%04X X:%04X Y:%04X D:%04X DB:%02X S:%04X P:%c%c%c%c%c%c%c%c%c HC:%04ld VC:%03ld FC:%02d",
+	sprintf(Line, "%-44s A:%04" PRIX32 " X:%04" PRIX32 " Y:%04" PRIX32 " D:%04" PRIX32 " DB:%02X S:%04" PRIX32 " P:%c%c%c%c%c%c%c%c%c HC:%04ld VC:%03ld FC:%02d",
 	        Line, SA1Registers.A.W, SA1Registers.X.W, SA1Registers.Y.W,
 	        SA1Registers.D.W, SA1Registers.DB, SA1Registers.S.W,
 	        SA1CheckEmulation() ? 'E' : 'e',
@@ -1343,7 +1343,7 @@ static int debug_get_number (char *Line, uint16 *Number)
 {
 	int	i;
 
-	if (sscanf(Line, " #%d", &i) == 1)
+	if (sscanf(Line, " #%" PRId32 "", &i) == 1)
 	{
 		*Number = i;
 		return (1);
@@ -1356,7 +1356,7 @@ static short debug_get_start_address (char *Line, uint8 *Bank, uint32 *Address)
 {
 	uint32	a, b;
 
-	if (sscanf(Line + 1, " $%x:%x", &b, &a) != 2)
+	if (sscanf(Line + 1, " $%" PRIx32 ":%" PRIx32 "", &b, &a) != 2)
 		return (-1);
 
 	*Bank = b;
@@ -1378,7 +1378,7 @@ static void debug_process_command (char *Line)
 	{
 		int	Count;
 
-		if (sscanf(&Line[4], "%x %d", &Address, &Count) == 2)
+		if (sscanf(&Line[4], "%" PRIx32 " %" PRId32 "", &Address, &Count) == 2)
 		{
 			FILE	*fs;
 
@@ -1404,17 +1404,17 @@ static void debug_process_command (char *Line)
 		printf("Vectors:\n");
 		sprintf(string, "      8 Bit   16 Bit ");
 		debug_line_print(string);
-		sprintf(string, "ABT $00:%04X|$00:%04X", S9xDebugGetWord(0xFFF8), S9xDebugGetWord(0xFFE8));
+		sprintf(string, "ABT $00:%04" PRIX32 "|$00:%04" PRIX32 "", S9xDebugGetWord(0xFFF8), S9xDebugGetWord(0xFFE8));
 		debug_line_print(string);
-		sprintf(string, "BRK $00:%04X|$00:%04X", S9xDebugGetWord(0xFFFE), S9xDebugGetWord(0xFFE6));
+		sprintf(string, "BRK $00:%04" PRIX32 "|$00:%04" PRIX32 "", S9xDebugGetWord(0xFFFE), S9xDebugGetWord(0xFFE6));
 		debug_line_print(string);
-		sprintf(string, "COP $00:%04X|$00:%04X", S9xDebugGetWord(0xFFF4), S9xDebugGetWord(0xFFE4));
+		sprintf(string, "COP $00:%04" PRIX32 "|$00:%04" PRIX32 "", S9xDebugGetWord(0xFFF4), S9xDebugGetWord(0xFFE4));
 		debug_line_print(string);
-		sprintf(string, "IRQ $00:%04X|$00:%04X", S9xDebugGetWord(0xFFFE), S9xDebugGetWord(0xFFEE));
+		sprintf(string, "IRQ $00:%04" PRIX32 "|$00:%04" PRIX32 "", S9xDebugGetWord(0xFFFE), S9xDebugGetWord(0xFFEE));
 		debug_line_print(string);
-		sprintf(string, "NMI $00:%04X|$00:%04X", S9xDebugGetWord(0xFFFA), S9xDebugGetWord(0xFFEA));
+		sprintf(string, "NMI $00:%04" PRIX32 "|$00:%04" PRIX32 "", S9xDebugGetWord(0xFFFA), S9xDebugGetWord(0xFFEA));
 		debug_line_print(string);
-		sprintf(string, "RES     $00:%04X", S9xDebugGetWord(0xFFFC));
+		sprintf(string, "RES     $00:%04" PRIX32 "", S9xDebugGetWord(0xFFFC));
 		debug_line_print(string);
 	}
 
@@ -1518,12 +1518,12 @@ static void debug_process_command (char *Line)
 				break;
 		}
 
-		printf("Sprites: Small: %dx%d, Large: %dx%d, OAMAddr: 0x%04x, OBJNameBase: 0x%04x, OBJNameSelect: 0x%04x, First: %d\n",
+		printf("Sprites: Small: %" PRId32 "x%" PRId32 ", Large: %" PRId32 "x%" PRId32 ", OAMAddr: 0x%04x, OBJNameBase: 0x%04x, OBJNameSelect: 0x%04x, First: %" PRId32 "\n",
 		       SmallWidth, SmallHeight, LargeWidth, LargeHeight, PPU.OAMAddr, PPU.OBJNameBase, PPU.OBJNameSelect, PPU.FirstSprite);
 
 		for (int i = 0; i < 128; i++)
 		{
-			printf("X:%3d Y:%3d %c%c%d%c ",
+			printf("X:%3d Y:%3d %c%c%" PRId32 "%c ",
 			       PPU.OBJ[i].HPos,
 			       PPU.OBJ[i].VPos,
 			       PPU.OBJ[i].VFlip ? 'V' : 'v',
@@ -1600,7 +1600,7 @@ static void debug_process_command (char *Line)
 			uint8	*dir = IAPU.RAM + (((APU.DSP[APU_DIR] << 8) + i * 4) & 0xffff);
 			int		addr = *dir + (*(dir + 1) << 8);
 			int		addr2 = *(dir + 2) + (*(dir + 3) << 8);
-			printf("%04X %04X;", addr, addr2);
+			printf("%04" PRIX32 " %04" PRIX32 ";", addr, addr2);
 
 			if (i % 8 == 7)
 				printf("\n");
@@ -1621,9 +1621,9 @@ static void debug_process_command (char *Line)
 		uint32	Count = 16;
 		Address = 0;
 
-		if (sscanf(Line + 2, "%x,%x", &Address, &Count) != 2)
+		if (sscanf(Line + 2, "%" PRIx32 ",%" PRIx32 "", &Address, &Count) != 2)
 		{
-			if (sscanf(Line + 2, "%x", &Address) == 1)
+			if (sscanf(Line + 2, "%" PRIx32 "", &Address) == 1)
 				Count = 16;
 		}
 
@@ -1631,7 +1631,7 @@ static void debug_process_command (char *Line)
 
 		for (uint32 l = 0; l < Count; l += 16)
 		{
-			printf("%04X ", Address);
+			printf("%04" PRIX32 " ", Address);
 
 			for (int i = 0; i < 16; i++)
 				printf("%02X ", IAPU.RAM[Address++]);
@@ -1650,7 +1650,7 @@ static void debug_process_command (char *Line)
 
 		for (int i = 0; i < 3; i++)
 			if (APU.TimerEnabled[i])
-				printf("Timer%d enabled, Value: 0x%03X, 4-bit: 0x%02X, Target: 0x%03X\n",
+				printf("Timer%" PRId32 " enabled, Value: 0x%03X, 4-bit: 0x%02X, Target: 0x%03X\n",
 				       i, APU.Timer[i], IAPU.RAM[0xfd + i], APU.TimerTarget[i]);
 	}
 
@@ -1718,7 +1718,7 @@ static void debug_process_command (char *Line)
 				for (Number = 0; Number != 5; Number++)
 				{
 					if (S9xBreakpoint[Number].Enabled)
-						sprintf(string, "%i @ $%02X:%04X", Number, S9xBreakpoint[Number].Bank, S9xBreakpoint[Number].Address);
+						sprintf(string, "%i @ $%02X:%04" PRIX32 "", Number, S9xBreakpoint[Number].Bank, S9xBreakpoint[Number].Address);
 					else
 						sprintf(string, "%i @ Disabled", Number);
 
@@ -1730,7 +1730,7 @@ static void debug_process_command (char *Line)
 				debug_line_print("Breakpoint:");
 
 				if (S9xBreakpoint[Number].Enabled)
-					sprintf(string, "%i @ $%02X:%04X", Number, S9xBreakpoint[Number].Bank, S9xBreakpoint[Number].Address);
+					sprintf(string, "%i @ $%02X:%04" PRIX32 "", Number, S9xBreakpoint[Number].Bank, S9xBreakpoint[Number].Address);
 				else
 					sprintf(string, "%i @ Disabled", Number);
 
@@ -1839,7 +1839,7 @@ static void debug_process_command (char *Line)
 
 		for (CLine = 0; CLine != 10; CLine++)
 		{
-			sprintf(string, "$%02X:%04X", Bank, Address);
+			sprintf(string, "$%02X:%04" PRIX32 "", Bank, Address);
 
 			for (CByte = 0; CByte != 16; CByte++)
 			{
@@ -1984,12 +1984,12 @@ static void debug_whats_used (void)
 {
 	printf("V-line: %ld, H-Pos: %ld, \n", (long) CPU.V_Counter, (long) CPU.Cycles);
 
-	printf("Screen mode: %d, ", PPU.BGMode);
+	printf("Screen mode: %" PRId32 ", ", PPU.BGMode);
 
 	if (PPU.BGMode <= 1 && (Memory.FillRAM[0x2105] & 8))
 		printf("(BG#2 Priority), ");
 
-	printf("Brightness: %d, ", PPU.Brightness);
+	printf("Brightness: %" PRId32 ", ", PPU.Brightness);
 
 	if (Memory.FillRAM[0x2100] & 0x80)
 		printf("(screen blanked), ");
@@ -2014,7 +2014,7 @@ static void debug_whats_used (void)
 		printf("Mode 7 flipping, ");
 
 	if (PPU.BGMode == 7)
-		printf("Mode 7 screen repeat: %d, ", (Memory.FillRAM[0x211a] & 0xc0) >> 6);
+		printf("Mode 7 screen repeat: %" PRId32 ", ", (Memory.FillRAM[0x211a] & 0xc0) >> 6);
 
 	if (Memory.FillRAM[0x2130] & 1)
 		printf("32K colour mode, ");
@@ -2030,7 +2030,7 @@ static void debug_whats_used (void)
 		if (PPU.CentreY & (1 << 12))
 			PPU.CentreY |= 0xe000;
 
-		printf("Matrix A: %.3f, B: %.3f, C: %.3f, D: %.3f, Centre X: %d Y:%d, \n",
+		printf("Matrix A: %.3f, B: %.3f, C: %.3f, D: %.3f, Centre X: %" PRId32 " Y:%" PRId32 ", \n",
 		       (double) PPU.MatrixA / 256, (double) PPU.MatrixB / 256,
 		       (double) PPU.MatrixC / 256, (double) PPU.MatrixD / 256,
 		       PPU.CentreX, PPU.CentreY);
@@ -2038,11 +2038,11 @@ static void debug_whats_used (void)
 
 	if ((Memory.FillRAM[0x2106] & 0xf0) && (Memory.FillRAM[0x2106] & 0x0f))
 	{
-		printf("Mosaic effect(%d) on, ", PPU.Mosaic);
+		printf("Mosaic effect(%" PRId32 ") on, ", PPU.Mosaic);
 
 		for (int i = 0; i < 4; i++)
 			if (Memory.FillRAM[0x2106] & (1 << i))
-				printf("BG%d, ", i);
+				printf("BG%" PRId32 ", ", i);
 	}
 
 	printf("\n");
@@ -2051,10 +2051,10 @@ static void debug_whats_used (void)
 		printf("V and H beam pos latched, \n");
 
 	if (Memory.FillRAM[0x4200] & 0x20)
-		printf("V-IRQ enabled at %d, \n", PPU.IRQVBeamPos);
+		printf("V-IRQ enabled at %" PRId32 ", \n", PPU.IRQVBeamPos);
 
 	if (Memory.FillRAM[0x4200] & 0x10)
-		printf("H-IRQ enabled at %d, \n", PPU.IRQHBeamPos);
+		printf("H-IRQ enabled at %" PRId32 ", \n", PPU.IRQHBeamPos);
 
 	if (Memory.FillRAM[0x4200] & 0x80)
 		printf("V-blank NMI enabled, \n");
@@ -2063,7 +2063,7 @@ static void debug_whats_used (void)
 	{
 		if (missing.hdma_this_frame & (1 << i))
 		{
-			printf("H-DMA %d [%d] 0x%02X%04X->0x21%02X %s %s 0x%02X%04X %s addressing, \n",
+			printf("H-DMA %" PRId32 " [%" PRId32 "] 0x%02X%04" PRIX32 "->0x21%02X %s %s 0x%02X%04" PRIX32 " %s addressing, \n",
 			       i, DMA[i].TransferMode, DMA[i].ABank, DMA[i].AAddress, DMA[i].BAddress,
 			       DMA[i].AAddressDecrement ? "dec" : "inc",
 			       DMA[i].Repeat ? "repeat" : "continue",
@@ -2076,20 +2076,20 @@ static void debug_whats_used (void)
 	{
 		if (missing.dma_this_frame & (1 << i))
 		{
-			printf("DMA %d [%d] 0x%02X%04X->0x21%02X Num: %d %s, \n",
+			printf("DMA %" PRId32 " [%" PRId32 "] 0x%02X%04" PRIX32 "->0x21%02X Num: %" PRId32 " %s, \n",
 			       i, DMA[i].TransferMode, DMA[i].ABank, DMA[i].AAddress, DMA[i].BAddress, DMA[i].TransferBytes,
 			       DMA[i].AAddressFixed ? "fixed" : (DMA[i].AAddressDecrement ? "dec" : "inc"));
 		}
 	}
 
-	printf("VRAM write address: 0x%04x(%s), Full Graphic: %d, Address inc: %d, \n",
+	printf("VRAM write address: 0x%04x(%s), Full Graphic: %" PRId32 ", Address inc: %" PRId32 ", \n",
 	       PPU.VMA.Address,
 	       PPU.VMA.High  ? "Byte" : "Word",
 	       PPU.VMA.FullGraphicCount, PPU.VMA.Increment);
 
 	for (int i = 0; i < 4; i++)
 	{
-		printf("BG%d: VOffset:%d, HOffset:%d, W:%d, H:%d, TS:%d, BA:0x%04x, TA:0x%04X, \n",
+		printf("BG%" PRId32 ": VOffset:%" PRId32 ", HOffset:%" PRId32 ", W:%" PRId32 ", H:%" PRId32 ", TS:%" PRId32 ", BA:0x%04x, TA:0x%04" PRIX32 ", \n",
 		       i, PPU.BG[i].VOffset, PPU.BG[i].HOffset,
 		       (PPU.BG[i].SCSize & 1) * 32 + 32,
 		       (PPU.BG[i].SCSize & 2) * 16 + 32,
@@ -2262,7 +2262,7 @@ static void debug_whats_used (void)
 		printf("\n");
 	}
 
-	printf("Window 1 (%d, %d, %02x, %02x): ", PPU.Window1Left, PPU.Window1Right, Memory.FillRAM[0x212e], Memory.FillRAM[0x212f]);
+	printf("Window 1 (%" PRId32 ", %" PRId32 ", %02x, %02x): ", PPU.Window1Left, PPU.Window1Right, Memory.FillRAM[0x212e], Memory.FillRAM[0x212f]);
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -2299,7 +2299,7 @@ static void debug_whats_used (void)
 
 	printf("\n");
 
-	printf("Window 2 (%d, %d): ", PPU.Window2Left, PPU.Window2Right);
+	printf("Window 2 (%" PRId32 ", %" PRId32 "): ", PPU.Window2Left, PPU.Window2Right);
 
 	for (int i = 0; i < 6; i++)
 	{
@@ -2361,7 +2361,7 @@ static void debug_whats_missing (void)
 
 	for (int i = 0; i < 8; i++)
 		if (missing.modes[i])
-			printf("%d, ", i);
+			printf("%" PRId32 ", ", i);
 
 	printf("\n");
 
@@ -2444,10 +2444,10 @@ static void debug_whats_missing (void)
 	printf("\n");
 
 	if (missing.virq)
-		printf("V-IRQ used at line %d, ", missing.virq_pos);
+		printf("V-IRQ used at line %" PRId32 ", ", missing.virq_pos);
 
 	if (missing.hirq)
-		printf("H-IRQ used at position %d, ", missing.hirq_pos);
+		printf("H-IRQ used at position %" PRId32 ", ", missing.hirq_pos);
 
 	printf("\n");
 
@@ -2478,10 +2478,10 @@ static void debug_whats_missing (void)
 		printf("DMA read, ");
 
 	if (missing.vram_inc)
-		printf("VRAM inc: %d, ", missing.vram_inc);
+		printf("VRAM inc: %" PRId32 ", ", missing.vram_inc);
 
 	if (missing.vram_full_graphic_inc)
-		printf("VRAM full graphic inc: %d, ", missing.vram_full_graphic_inc);
+		printf("VRAM full graphic inc: %" PRId32 ", ", missing.vram_full_graphic_inc);
 
 	printf("\n");
 
@@ -2489,7 +2489,7 @@ static void debug_whats_missing (void)
 	{
 		if (missing.hdma[i].used)
 		{
-			printf("HDMA %d 0x%02X%04X->0x21%02X %s, ",
+			printf("HDMA %" PRId32 " 0x%02X%04" PRIX32 "->0x21%02X %s, ",
 			       i, missing.hdma[i].abus_bank, missing.hdma[i].abus_address, missing.hdma[i].bbus_address,
 			       missing.hdma[i].indirect_address ? "indirect" : "absolute");
 
@@ -2513,29 +2513,29 @@ static void debug_whats_missing (void)
 	{
 		if (missing.dma_channels & (1 << i))
 		{
-			printf("DMA %d [%d] 0x%02X%04X->0x21%02X Num: %d %s, \n",
+			printf("DMA %" PRId32 " [%" PRId32 "] 0x%02X%04" PRIX32 "->0x21%02X Num: %" PRId32 " %s, \n",
 			       i, DMA[i].TransferMode, DMA[i].ABank, DMA[i].AAddress, DMA[i].BAddress, DMA[i].TransferBytes,
 			       DMA[i].AAddressFixed ? "fixed" : (DMA[i].AAddressDecrement ? "dec" : "inc"));
 		}
 	}
 
 	if (missing.unknownppu_read)
-		printf("Read from unknown PPU register: $%04X, \n", missing.unknownppu_read);
+		printf("Read from unknown PPU register: $%04" PRIX32 ", \n", missing.unknownppu_read);
 
 	if (missing.unknownppu_write)
-		printf("Write to unknown PPU register: $%04X, \n", missing.unknownppu_write);
+		printf("Write to unknown PPU register: $%04" PRIX32 ", \n", missing.unknownppu_write);
 
 	if (missing.unknowncpu_read)
-		printf("Read from unknown CPU register: $%04X, \n", missing.unknowncpu_read);
+		printf("Read from unknown CPU register: $%04" PRIX32 ", \n", missing.unknowncpu_read);
 
 	if (missing.unknowncpu_write)
-		printf("Write to unknown CPU register: $%04X, \n", missing.unknowncpu_write);
+		printf("Write to unknown CPU register: $%04" PRIX32 ", \n", missing.unknowncpu_write);
 
 	if (missing.unknowndsp_read)
-		printf("Read from unknown DSP register: $%04X, \n", missing.unknowndsp_read);
+		printf("Read from unknown DSP register: $%04" PRIX32 ", \n", missing.unknowndsp_read);
 
 	if (missing.unknowndsp_write)
-		printf("Write to unknown DSP register: $%04X, \n", missing.unknowndsp_write);
+		printf("Write to unknown DSP register: $%04" PRIX32 ", \n", missing.unknowndsp_write);
 }
 
 void S9xDoDebug (void)

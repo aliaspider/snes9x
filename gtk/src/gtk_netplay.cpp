@@ -52,7 +52,7 @@ S9xNetplayConnect (void)
                                       GTK_DIALOG_DESTROY_WITH_PARENT,
                                       GTK_MESSAGE_ERROR,
                                       GTK_BUTTONS_CLOSE,
-                                      "Couldn't connect to server: %s:%d",
+                                      "Couldn't connect to server: %s:%" PRId32 "",
                                       gui_config->netplay_last_host,
                                       gui_config->netplay_last_port);
         gtk_window_set_title (GTK_WINDOW (msg), _("Connection Error"));

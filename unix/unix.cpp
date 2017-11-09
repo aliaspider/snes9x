@@ -947,7 +947,7 @@ void S9xSyncSpeed (void)
 	if (Settings.NetPlay && NetPlay.Connected)
 	{
 	#if defined(NP_DEBUG) && NP_DEBUG == 2
-		printf("CLIENT: SyncSpeed @%d\n", S9xGetMilliTime());
+		printf("CLIENT: SyncSpeed @%" PRId32 "\n", S9xGetMilliTime());
 	#endif
 
 		S9xNPSendJoypadUpdate(old_joypads[0]);
@@ -959,7 +959,7 @@ void S9xSyncSpeed (void)
 			NetPlay.PendingWait4Sync = !S9xNPWaitForHeartBeatDelay(100);
 		#if defined(NP_DEBUG) && NP_DEBUG == 2
 			if (NetPlay.PendingWait4Sync)
-				printf("CLIENT: PendingWait4Sync1 @%d\n", S9xGetMilliTime());
+				printf("CLIENT: PendingWait4Sync1 @%" PRId32 "\n", S9xGetMilliTime());
 		#endif
 
 			IPPU.RenderThisFrame = TRUE;
@@ -970,7 +970,7 @@ void S9xSyncSpeed (void)
 			NetPlay.PendingWait4Sync = !S9xNPWaitForHeartBeatDelay(200);
 		#if defined(NP_DEBUG) && NP_DEBUG == 2
 			if (NetPlay.PendingWait4Sync)
-				printf("CLIENT: PendingWait4Sync2 @%d\n", S9xGetMilliTime());
+				printf("CLIENT: PendingWait4Sync2 @%" PRId32 "\n", S9xGetMilliTime());
 		#endif
 
 			if (IPPU.SkippedFrames < NetPlay.MaxFrameSkip)
@@ -1352,7 +1352,7 @@ static void InitJoysticks (void)
 			if (js_fd[i] > 0)
 			{
 				ioctl(js_fd[i], JSIOCGNAME(128), name);
-				printf ("  and %s (%s) as joystick%d\n", name, js_device[i], i + 1);
+				printf ("  and %s (%s) as joystick%" PRId32 "\n", name, js_device[i], i + 1);
 			}
 		}
 	}
@@ -1361,7 +1361,7 @@ static void InitJoysticks (void)
 	{
 		ioctl(js_fd[0], JSIOCGAXES, &axes);
 		ioctl(js_fd[0], JSIOCGBUTTONS, &buttons);
-		printf("Using %d-axis %d-button joystick (%s) as joystick1\n", axes, buttons, js_device[0]);
+		printf("Using %" PRId32 "-axis %" PRId32 "-button joystick (%s) as joystick1\n", axes, buttons, js_device[0]);
 
 		for (int i = 1; i < 8; i++)
 		{
@@ -1369,7 +1369,7 @@ static void InitJoysticks (void)
 			{
 				ioctl(js_fd[i], JSIOCGAXES, &axes);
 				ioctl(js_fd[i], JSIOCGBUTTONS, &buttons);
-				printf("  and %d-axis %d-button joystick (%s) as joystick%d\n", axes, buttons, js_device[i], i + 1);
+				printf("  and %" PRId32 "-axis %" PRId32 "-button joystick (%s) as joystick%" PRId32 "\n", axes, buttons, js_device[i], i + 1);
 			}
 		}
 	}
@@ -1389,7 +1389,7 @@ static void ReadJoysticks (void)
 			js_fd[i] = open(js_device[i], O_RDONLY | O_NONBLOCK);
 			if (js_fd[i] >= 0)
 			{
-				fprintf(stderr,"Joystick %d reconnected.\n",i);
+				fprintf(stderr,"Joystick %" PRId32 " reconnected.\n",i);
 				js_unplugged[i] = FALSE;
 			}
 		}
@@ -1417,7 +1417,7 @@ static void ReadJoysticks (void)
 		/* EAGAIN is returned when the queue is empty */
 		if (errno != EAGAIN) {
 			// Error reading joystick.
-			fprintf(stderr,"Error reading joystick %d!\n",i);
+			fprintf(stderr,"Error reading joystick %" PRId32 "!\n",i);
 
 			// Mark for reconnect attempt.
 			js_unplugged[i] = TRUE;
@@ -1515,7 +1515,7 @@ bool8 S9xOpenSoundDevice (void)
 		return (FALSE);
 
 	so.fragment_size = J;
-	printf("fragment size: %d\n", J);
+	printf("fragment size: %" PRId32 "\n", J);
 #endif
 
 	return (TRUE);
@@ -1833,11 +1833,11 @@ int main (int argc, char **argv)
 
 		if (!S9xNPConnectToServer(Settings.ServerName, Settings.Port, Memory.ROMName))
 		{
-			fprintf(stderr, "Failed to connect to server %s on port %d.\n", Settings.ServerName, Settings.Port);
+			fprintf(stderr, "Failed to connect to server %s on port %" PRId32 ".\n", Settings.ServerName, Settings.Port);
 			S9xExit();
 		}
 
-		fprintf(stderr, "Connected to server %s on port %d as player #%d playing %s.\n", Settings.ServerName, Settings.Port, NetPlay.Player, Memory.ROMName);
+		fprintf(stderr, "Connected to server %s on port %" PRId32 " as player #%" PRId32 " playing %s.\n", Settings.ServerName, Settings.Port, NetPlay.Player, Memory.ROMName);
 	}
 #endif
 

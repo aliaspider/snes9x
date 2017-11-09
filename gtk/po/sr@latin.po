@@ -27,18 +27,18 @@ msgstr "Tastatura %s%s%s%s"
 
 #: ../src/gtk_binding.cpp:213
 #, c-format
-msgid "Axis #%d %s %d%%"
-msgstr "Smerovi #%d %s %d%%"
+msgid "Axis #%" PRId32 " %s %" PRId32 "%%"
+msgstr "Smerovi #%" PRId32 " %s %" PRId32 "%%"
 
 #: ../src/gtk_binding.cpp:218
 #, c-format
-msgid "Button %d"
-msgstr "Dugme %d"
+msgid "Button %" PRId32 ""
+msgstr "Dugme %" PRId32 ""
 
 #: ../src/gtk_binding.cpp:220
 #, c-format
-msgid "Joystick %d %s"
-msgstr "Dzojstik %d %s"
+msgid "Joystick %" PRId32 " %s"
+msgstr "Dzojstik %" PRId32 " %s"
 
 #: ../src/gtk_binding.cpp:225
 #, c-format
@@ -210,8 +210,8 @@ msgstr "Pozicije"
 
 #: ../src/gtk_s9xwindow.cpp:965
 #, c-format
-msgid "The current frame in the movie is <b>%d</b>."
-msgstr "Trenutni frejm u filmu je <b>%d</b>."
+msgid "The current frame in the movie is <b>%" PRId32 "</b>."
+msgstr "Trenutni frejm u filmu je <b>%" PRId32 "</b>."
 
 #: ../src/gtk_s9xwindow.cpp:1031
 msgid "Save State"
@@ -242,8 +242,8 @@ msgstr "Pauza - "
 
 #: ../src/gtk_s9xwindow.cpp:1234
 #, c-format
-msgid "%s%s on NetPlay %s:%d - Player %d"
-msgstr "%s%s na NetPlay %s:%d - Igrač %d"
+msgid "%s%s on NetPlay %s:%" PRId32 " - Player %" PRId32 ""
+msgstr "%s%s na NetPlay %s:%" PRId32 " - Igrač %" PRId32 ""
 
 #: ../src/gtk_s9xwindow.cpp:1271
 #, c-format
@@ -256,7 +256,7 @@ msgid ""
 "<i>Type:</i> %02x\n"
 "<i>Contents:</i> %s\n"
 "<i>ROM Size:</i> %s\n"
-"<i>Calculated Size:</i> %d\n"
+"<i>Calculated Size:</i> %" PRId32 "\n"
 "<i>SRAM Size:</i> %s\n"
 "<i>Header Checksum:</i> %04X\n"
 "<i>Checksum Compliment:</i> %04X\n"

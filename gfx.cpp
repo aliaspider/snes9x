@@ -2035,7 +2035,7 @@ static void DisplayFrameRate (void)
 		lastTime = currTime;
 		lastFrameCount = IPPU.TotalEmulatedFrames;
 	}
-	sprintf(string, "%u fps", calcFps);
+	sprintf(string, "%" PRIu32 " fps", calcFps);
 	S9xDisplayString(string, 2, IPPU.RenderedScreenWidth - (font_width - 1) * strlen(string) - 1, false);
 
 #ifdef DEBUGGER

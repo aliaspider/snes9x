@@ -237,7 +237,7 @@ const char * S9xProActionReplayToRaw (const char *code, uint32 &address, uint8 &
 {
 	uint32	data = 0;
 
-	if (strlen(code) != 8 || !S9xAllHex(code, 8) || sscanf(code, "%x", &data) != 1)
+	if (strlen(code) != 8 || !S9xAllHex(code, 8) || sscanf(code, "%" PRIx32 "", &data) != 1)
 		return ("Invalid Pro Action Replay code - should be 8 hex digits in length.");
 
 	address = data >> 8;
@@ -256,7 +256,7 @@ const char * S9xGoldFingerToRaw (const char *code, uint32 &address, bool8 &sram,
 
 	strncpy(tmp, code, 5);
 	tmp[5] = 0;
-	if (sscanf(tmp, "%x", &address) != 1)
+	if (sscanf(tmp, "%" PRIx32 "", &address) != 1)
 		return ("Invalid Gold Finger code.");
 
 	for (i = 0; i < 3; i++)
@@ -310,7 +310,7 @@ const char * S9xGameGenieToRaw (const char *code, uint32 &address, uint8 &byte)
 	}
 
 	uint32	data = 0;
-	sscanf(new_code, "%x", &data);
+	sscanf(new_code, "%" PRIx32 "", &data);
 	byte = (uint8) (data >> 24);
 	address = data & 0xffffff;
 	address = ((address & 0x003c00) << 10) +

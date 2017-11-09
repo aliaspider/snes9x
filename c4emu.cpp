@@ -523,7 +523,7 @@ static void C4DoScaleRotate (int row_padding)
 	uint8	w = Memory.C4RAM[0x1f89] & ~7;
 	uint8	h = Memory.C4RAM[0x1f8c] & ~7;
 
-	//printf("%dx%d XScale=%04x YScale=%04x angle=%03x\n", w, h, XScale, YScale, READ_WORD(Memory.C4RAM + 0x1f80) & 0x1ff);
+	//printf("%" PRId32 "x%" PRId32 " XScale=%04x YScale=%04x angle=%03x\n", w, h, XScale, YScale, READ_WORD(Memory.C4RAM + 0x1f80) & 0x1ff);
 	//printf("Matrix: [%10g %10g]  [%04x %04x]\n", A / 4096.0, B / 4096.0, A & 0xffff, B & 0xffff);
 	//printf("        [%10g %10g]  [%04x %04x]\n", C / 4096.0, D / 4096.0, C & 0xffff, D & 0xffff);
 
@@ -537,7 +537,7 @@ static void C4DoScaleRotate (int row_padding)
 	if (Memory.C4RAM[0x1f97] != 0)
 		printf("$7f97=%02x, expected 00\n", Memory.C4RAM[0x1f97]);
 	if ((Cx & ~1) != w / 2 || (Cy & ~1) != h / 2)
-		printf("Center is not middle of image! (%d, %d) != (%d, %d)\n", Cx, Cy, w / 2, h / 2);
+		printf("Center is not middle of image! (%" PRId32 ", %" PRId32 ") != (%" PRId32 ", %" PRId32 ")\n", Cx, Cy, w / 2, h / 2);
 #endif
 
 	// Calculate start position (i.e. (Ox, Oy) = (0, 0))
@@ -841,7 +841,7 @@ static void C4SprDisintegrate (void)
 
 #ifdef DEBUGGER
 	if ((Cx & ~1) != width / 2 || (Cy & ~1) != height / 2)
-		printf("Center is not middle of image for disintegrate! (%d, %d) != (%d, %d)\n", Cx, Cy, width / 2, height / 2);
+		printf("Center is not middle of image for disintegrate! (%" PRId32 ", %" PRId32 ") != (%" PRId32 ", %" PRId32 ")\n", Cx, Cy, width / 2, height / 2);
 #endif
 
 	scaleX = (int16) READ_WORD(Memory.C4RAM + 0x1f86);
@@ -1092,9 +1092,9 @@ void S9xSetC4 (uint8 byte, uint16 Address)
 
 				#ifdef DEBUGGER
 					if (C4CosTable[angle1] == 0)
-						fprintf(stderr, "22 Trapezoid: Invalid tangent! angle1=%d\n", angle1);
+						fprintf(stderr, "22 Trapezoid: Invalid tangent! angle1=%" PRId32 "\n", angle1);
 					if (C4CosTable[angle2] == 0)
-						fprintf(stderr, "22 Trapezoid: Invalid tangent! angle2=%d\n", angle2);
+						fprintf(stderr, "22 Trapezoid: Invalid tangent! angle2=%" PRId32 "\n", angle2);
 				#endif
 
 					int32	tan1 = (C4CosTable[angle1] != 0) ? ((((int32) C4SinTable[angle1]) << 16) / C4CosTable[angle1]) : 0x80000000;

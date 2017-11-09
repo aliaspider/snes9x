@@ -27,18 +27,18 @@ msgstr "Tecla %s%s%s%s"
 
 #: ../src/gtk_binding.cpp:202
 #, c-format
-msgid "Axis #%d %s %d%%"
-msgstr "Eixo #%d %s %d%%"
+msgid "Axis #%" PRId32 " %s %" PRId32 "%%"
+msgstr "Eixo #%" PRId32 " %s %" PRId32 "%%"
 
 #: ../src/gtk_binding.cpp:207
 #, c-format
-msgid "Button %d"
-msgstr "Botão %d"
+msgid "Button %" PRId32 ""
+msgstr "Botão %" PRId32 ""
 
 #: ../src/gtk_binding.cpp:209
 #, c-format
-msgid "Joystick %d %s"
-msgstr "Controle %d %s"
+msgid "Joystick %" PRId32 " %s"
+msgstr "Controle %" PRId32 " %s"
 
 #: ../src/gtk_binding.cpp:214
 #, c-format
@@ -202,8 +202,8 @@ msgstr "Estados salvos"
 
 #: ../src/gtk_s9xwindow.cpp:955
 #, c-format
-msgid "The current frame in the movie is <b>%d</b>."
-msgstr "O quadro atual do filme é <b>%d</b>."
+msgid "The current frame in the movie is <b>%" PRId32 "</b>."
+msgstr "O quadro atual do filme é <b>%" PRId32 "</b>."
 
 #: ../src/gtk_s9xwindow.cpp:1021
 msgid "Save State"
@@ -234,8 +234,8 @@ msgstr "Pausado - "
 
 #: ../src/gtk_s9xwindow.cpp:1201
 #, c-format
-msgid "%s%s on NetPlay %s:%d - Player %d"
-msgstr "%s%s no jogo em rede %s:%d - Jogador %d"
+msgid "%s%s on NetPlay %s:%" PRId32 " - Player %" PRId32 ""
+msgstr "%s%s no jogo em rede %s:%" PRId32 " - Jogador %" PRId32 ""
 
 #: ../src/gtk_s9xwindow.cpp:1238
 #, c-format
@@ -248,7 +248,7 @@ msgid ""
 "<i>Type:</i> %02x\n"
 "<i>Contents:</i> %s\n"
 "<i>ROM Size:</i> %s\n"
-"<i>Calculated Size:</i> %d\n"
+"<i>Calculated Size:</i> %" PRId32 "\n"
 "<i>SRAM Size:</i> %s\n"
 "<i>Header Checksum:</i> %04X\n"
 "<i>Checksum Compliment:</i> %04X\n"
@@ -265,7 +265,7 @@ msgstr ""
 "<i>Tipo:</i> %02x\n"
 "<i>Conteúdo:</i> %s\n"
 "<i>Tamanho da ROM:</i> %s\n"
-"<i>Tamanho real calculado:</i> %d\n"
+"<i>Tamanho real calculado:</i> %" PRId32 "\n"
 "<i>Tamanho da SRAM:</i> %s\n"
 "<i>Soma de verificação no cabeçalho:</i> %04X\n"
 "<i>Soma de verificação complementar (inversa):</i> %04X\n"

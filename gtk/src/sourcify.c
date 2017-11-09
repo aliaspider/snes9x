@@ -29,7 +29,7 @@ main (int argc,
     outfile = fopen (argv[2], "w+");
 
     fprintf (outfile,
-             "int %s_size = %d;\n\n",
+             "int %s_size = %" PRId32 ";\n\n",
              argv[3],
              (int) file_info.st_size);
     fprintf (outfile, "unsigned char %s [] = \n{\n  ", argv[3]);
@@ -44,7 +44,7 @@ main (int argc,
             fprintf (outfile, "\n  ");
         }
 
-        fprintf (outfile, "%d,", inchar);
+        fprintf (outfile, "%" PRId32 ",", inchar);
         counter++;
     }
 

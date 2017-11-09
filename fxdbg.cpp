@@ -1411,7 +1411,7 @@ static void FxPipeString (char *pvString)
 	}
 	else
 	if (PIPE >= 0x10 && PIPE <= 0x1f && TF(B))	// Check for 'move' instruction
-		sprintf(p, "move r%d, r%d", USEX8(PIPE & 0x0f), (uint32) (GSU.pvSreg - GSU.avReg));
+		sprintf(p, "move r%" PRId32 ", r%" PRId32 "", USEX8(PIPE & 0x0f), (uint32) (GSU.pvSreg - GSU.avReg));
 	else
 	if (PIPE >= 0xa0 && PIPE <= 0xaf)			// Check for 'ibt', 'lms' or 'sms'
 	{
@@ -1423,7 +1423,7 @@ static void FxPipeString (char *pvString)
 	}
 	else
 	if (PIPE >= 0xb0 && PIPE <= 0xbf && TF(B))	// Check for 'moves'
-		sprintf(p, "moves r%d, r%d", (uint32) (GSU.pvDreg - GSU.avReg), USEX8(PIPE & 0x0f));
+		sprintf(p, "moves r%" PRId32 ", r%" PRId32 "", (uint32) (GSU.pvDreg - GSU.avReg), USEX8(PIPE & 0x0f));
 	else
 	if (PIPE >= 0xf0)							// Check for 'iwt', 'lm' or 'sm'
 	{

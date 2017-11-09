@@ -222,7 +222,7 @@ static inline bool8 addCyclesInDMA (uint8 dma_channel)
 	{
 		CPU.HDMARanInDMA = 0;
 	#ifdef DEBUGGER
-		printf("HDMA and DMA use the same channel %d!\n", dma_channel);
+		printf("HDMA and DMA use the same channel %" PRId32 "!\n", dma_channel);
 	#endif
 		// If HDMA triggers in the middle of DMA transfer and it uses the same channel,
 		// it kills the DMA transfer immediately. $43x2 and $43x5 stop updating.
@@ -279,7 +279,7 @@ bool8 S9xDoDMA (uint8 Channel)
 	#ifdef DEBUGGER
 		if (Settings.TraceDMA)
 		{
-			sprintf(String, "DMA[%d]: WRAM Bank:%02X->$2180", Channel, d->ABank);
+			sprintf(String, "DMA[%" PRId32 "]: WRAM Bank:%02X->$2180", Channel, d->ABank);
 			S9xMessage(S9X_TRACE, S9X_DMA_TRACE, String);
 		}
 	#endif
@@ -330,7 +330,7 @@ bool8 S9xDoDMA (uint8 Channel)
 		#ifdef DEBUGGER
 			else
 			{
-				sprintf(String, "S-DD1: DMA from non-block address $%02X:%04X", d->ABank, d->AAddress);
+				sprintf(String, "S-DD1: DMA from non-block address $%02X:%04" PRIX32 "", d->ABank, d->AAddress);
 				S9xMessage(S9X_WARNING, S9X_DMA_TRACE, String);
 			}
 		#endif
@@ -383,7 +383,7 @@ bool8 S9xDoDMA (uint8 Channel)
 			uint8	*base = S9xGetBasePointer((d->ABank << 16) + addr);
 			if (!base)
 			{
-				sprintf(String, "SA-1: DMA from non-block address $%02X:%04X", d->ABank, addr);
+				sprintf(String, "SA-1: DMA from non-block address $%02X:%04" PRIX32 "", d->ABank, addr);
 				S9xMessage(S9X_WARNING, S9X_DMA_TRACE, String);
 				base = Memory.ROM;
 			}
@@ -398,8 +398,8 @@ bool8 S9xDoDMA (uint8 Channel)
 			in_sa1_dma = TRUE;
 
 		#if 0
-			printf("SA-1 DMA: %08x,", base);
-			printf("depth = %d, count = %d, bytes_per_char = %d, bytes_per_line = %d, num_chars = %d, char_line_bytes = %d\n",
+			printf("SA-1 DMA: %08 " PRIx32 ",", base);
+			printf("depth = %" PRId32 ", count = %" PRId32 ", bytes_per_char = %" PRId32 ", bytes_per_line = %" PRId32 ", num_chars = %" PRId32 ", char_line_bytes = %" PRId32 "\n",
 				depth, count, bytes_per_char, bytes_per_line, num_chars, char_line_bytes);
 		#endif
 
@@ -502,19 +502,19 @@ bool8 S9xDoDMA (uint8 Channel)
 #ifdef DEBUGGER
 	if (Settings.TraceDMA)
 	{
-		sprintf(String, "DMA[%d]: %s Mode:%d 0x%02X%04X->0x21%02X Bytes:%d (%s) V:%03d",
+		sprintf(String, "DMA[%" PRId32 "]: %s Mode:%" PRId32 " 0x%02X%04" PRIX32 "->0x21%02X Bytes:%" PRId32 " (%s) V:%03d",
 			Channel, d->ReverseTransfer ? "PPU->CPU" : "CPU->PPU", d->TransferMode, d->ABank, d->AAddress, d->BAddress,
 			d->TransferBytes, d->AAddressFixed ? "fixed" : (d->AAddressDecrement ? "dec" : "inc"), CPU.V_Counter);
 
 		if (d->BAddress == 0x18 || d->BAddress == 0x19 || d->BAddress == 0x39 || d->BAddress == 0x3a)
-			sprintf(String, "%s VRAM: %04X (%d,%d) %s", String,
+			sprintf(String, "%s VRAM: %04" PRIX32 " (%" PRId32 ",%" PRId32 ") %s", String,
 				PPU.VMA.Address, PPU.VMA.Increment, PPU.VMA.FullGraphicCount, PPU.VMA.High ? "word" : "byte");
 		else
 		if (d->BAddress == 0x22 || d->BAddress == 0x3b)
-			sprintf(String, "%s CGRAM: %02X (%x)", String, PPU.CGADD, PPU.CGFLIP);
+			sprintf(String, "%s CGRAM: %02X (%" PRIx32 ")", String, PPU.CGADD, PPU.CGFLIP);
 		else
 		if (d->BAddress == 0x04 || d->BAddress == 0x38)
-			sprintf(String, "%s OBJADDR: %04X", String, PPU.OAMAddr);
+			sprintf(String, "%s OBJADDR: %04" PRIX32 "", String, PPU.OAMAddr);
 
 		S9xMessage(S9X_TRACE, S9X_DMA_TRACE, String);
 	}
@@ -731,7 +731,7 @@ bool8 S9xDoDMA (uint8 Channel)
 			#ifdef DEBUGGER
 				else
 				{
-					sprintf(String, "Unknown DMA transfer mode: %d on channel %d\n", d->TransferMode, Channel);
+					sprintf(String, "Unknown DMA transfer mode: %" PRId32 " on channel %" PRId32 "\n", d->TransferMode, Channel);
 					S9xMessage(S9X_TRACE, S9X_DMA_TRACE, String);
 				}
 			#endif
@@ -1038,7 +1038,7 @@ bool8 S9xDoDMA (uint8 Channel)
 			#ifdef DEBUGGER
 				else
 				{
-					sprintf(String, "Unknown DMA transfer mode: %d on channel %d\n", d->TransferMode, Channel);
+					sprintf(String, "Unknown DMA transfer mode: %" PRId32 " on channel %" PRId32 "\n", d->TransferMode, Channel);
 					S9xMessage(S9X_TRACE, S9X_DMA_TRACE, String);
 				}
 			#endif
@@ -1170,7 +1170,7 @@ bool8 S9xDoDMA (uint8 Channel)
 
 					default:
 					#ifdef DEBUGGER
-						sprintf(String, "Unknown DMA transfer mode: %d on channel %d\n", d->TransferMode, Channel);
+						sprintf(String, "Unknown DMA transfer mode: %" PRId32 " on channel %" PRId32 "\n", d->TransferMode, Channel);
 						S9xMessage(S9X_TRACE, S9X_DMA_TRACE, String);
 					#endif
 						while (count)
@@ -1271,7 +1271,7 @@ bool8 S9xDoDMA (uint8 Channel)
 
 					default:
 					#ifdef DEBUGGER
-						sprintf(String, "Unknown DMA transfer mode: %d on channel %d\n", d->TransferMode, Channel);
+						sprintf(String, "Unknown DMA transfer mode: %" PRId32 " on channel %" PRId32 "\n", d->TransferMode, Channel);
 						S9xMessage(S9X_TRACE, S9X_DMA_TRACE, String);
 					#endif
 						while (count)
@@ -1303,7 +1303,7 @@ bool8 S9xDoDMA (uint8 Channel)
 #if 0
 	// sanity check
     if (d->TransferBytes != 0)
-		fprintf(stderr,"DMA[%d] TransferBytes not 0! $21%02x Reverse:%d %04x\n", Channel, d->BAddress, d->ReverseTransfer, d->TransferBytes);
+		fprintf(stderr,"DMA[%" PRId32 "] TransferBytes not 0! $21%02x Reverse:%" PRId32 " %04x\n", Channel, d->BAddress, d->ReverseTransfer, d->TransferBytes);
 #endif
 
 	CPU.InDMA = FALSE;
@@ -1475,7 +1475,7 @@ uint8 S9xDoHDMA (uint8 byte)
 			#ifdef DEBUGGER
 				if (Settings.TraceHDMA && p->DoTransfer)
 				{
-					sprintf(String, "H-DMA[%d] %s (%d) 0x%06X->0x21%02X %s, Count: %3d, Rep: %s, V-LINE: %3ld %02X%04X",
+					sprintf(String, "H-DMA[%" PRId32 "] %s (%" PRId32 ") 0x%06X->0x21%02X %s, Count: %3d, Rep: %s, V-LINE: %3ld %02X%04" PRIX32 "",
 							p-DMA, p->ReverseTransfer? "read" : "write",
 							p->TransferMode, ShiftedIBank+IAddr, p->BAddress,
 							p->HDMAIndirectAddressing ? "ind" : "abs",

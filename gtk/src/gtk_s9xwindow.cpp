@@ -1061,10 +1061,10 @@ Snes9xWindow::movie_seek_dialog (void)
 
     pause_from_focus_change ();
 
-    snprintf (str, 1024, _("The current frame in the movie is <b>%d</b>."), S9xMovieGetFrameCounter ());
+    snprintf (str, 1024, _("The current frame in the movie is <b>%" PRId32 "</b>."), S9xMovieGetFrameCounter ());
     gtk_label_set_label (GTK_LABEL (seek_dialog->get_widget ("current_frame_label")), str);
 
-    snprintf (str, 1024, "%d", S9xMovieGetFrameCounter ());
+    snprintf (str, 1024, "%" PRId32 "", S9xMovieGetFrameCounter ());
     seek_dialog->set_entry_text ("frame_entry", str);
 
     gtk_window_set_transient_for (seek_window, get_window ());
@@ -1320,7 +1320,7 @@ Snes9xWindow::update_statusbar (void)
             {
                 snprintf (status_string,
                           256,
-                          _("%s%s on NetPlay %s:%d - Player %d"),
+                          _("%s%s on NetPlay %s:%" PRId32 " - Player %" PRId32 ""),
                           is_paused () || NetPlay.Paused ? _("Paused - ") : "",
                           S9xBasenameNoExt (Memory.ROMFilename),
                           NetPlay.ServerHostName,
@@ -1367,7 +1367,7 @@ Snes9xWindow::show_rom_info (void)
                                               "<i>Type:</i> %02x\n"
                                               "<i>Contents:</i> %s\n"
                                               "<i>ROM Size:</i> %s\n"
-                                              "<i>Calculated Size:</i> %d\n"
+                                              "<i>Calculated Size:</i> %" PRId32 "\n"
                                               "<i>SRAM Size:</i> %s\n"
                                               "<i>Header Checksum:</i> %04X\n"
                                               "<i>Checksum Compliment:</i> %04X\n"

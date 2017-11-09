@@ -316,7 +316,7 @@ static inline void S9xCheckInterrupts (void)
 	if (!CPU.IRQLastState && thisIRQ)
 	{
 #ifdef DEBUGGER
-		S9xTraceFormattedMessage("--- /IRQ High->Low  prev HC:%04d  curr HC:%04d  HTimer:%d Pos:%04d  VTimer:%d Pos:%03d",
+		S9xTraceFormattedMessage("--- /IRQ High->Low  prev HC:%04d  curr HC:%04d  HTimer:%" PRId32 " Pos:%04d  VTimer:%" PRId32 " Pos:%03d",
 			CPU.PrevCycles, CPU.Cycles, PPU.HTimerEnabled, PPU.HTimerPosition, PPU.VTimerEnabled, PPU.VTimerPosition);
 #endif
 		CPU.IRQLine = TRUE;

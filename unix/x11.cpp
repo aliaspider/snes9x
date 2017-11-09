@@ -627,7 +627,7 @@ static bool8 SetupXvideo()
 		fprintf(stderr,"XvQueryAdaptors error.");
 		return FALSE;
 	}
-	printf("XvQueryAdaptors: %d adaptor(s) found.\n",p_num_adaptors);
+	printf("XvQueryAdaptors: %" PRId32 " adaptor(s) found.\n",p_num_adaptors);
 
 	unsigned int minAdaptor = 0, maxAdaptor = p_num_adaptors;
 	// Allow user to force adaptor choice
@@ -647,7 +647,7 @@ static bool8 SetupXvideo()
 		if (! (ai[i].type & XvImageMask)) continue;
 		if (! (ai[i].type & XvInputMask)) continue;
 
-		printf("\tAdaptor #%d: [%s]: %ld port(s) available.\n", i, ai[i].name, ai[i].num_ports);
+		printf("\tAdaptor #%" PRId32 ": [%s]: %ld port(s) available.\n", i, ai[i].name, ai[i].num_ports);
 
 		// Get encodings available here
 		//  AFAIK all ports on an adapter share the same encodings info.
@@ -685,11 +685,11 @@ static bool8 SetupXvideo()
 			ret = XvGrabPort(GUI.display, p, CurrentTime);
 			if (ret == Success)
 			{
-				printf("\tSuccessfully bound to Xv port %d\n",p);
+				printf("\tSuccessfully bound to Xv port %" PRId32 "\n",p);
 				GUI.xv_port = p;
 				break;
 			} else {
-				fprintf(stderr,"\tXvGrabPort port %d fail.\n",p);
+				fprintf(stderr,"\tXvGrabPort port %" PRId32 " fail.\n",p);
 			}
 		}
 	}
@@ -778,7 +778,7 @@ static bool8 SetupXvideo()
 
 	if (GUI.xv_format != FOURCC_YUY2)
 	{
-		printf("Selected XvRGB format: %d bpp\n",GUI.xv_bpp);
+		printf("Selected XvRGB format: %" PRId32 " bpp\n",GUI.xv_bpp);
 	} else {
 		// use YUY2
 		printf("Fallback to YUY2 format.\n");
@@ -878,7 +878,7 @@ void S9xInitDisplay (int argc, char **argv)
 				double snesAspect = (double)SNES_WIDTH / SNES_HEIGHT_EXTENDED;
 				double ratio = screenAspect / snesAspect;
 
-				printf("\tScreen (%dx%d) aspect %f vs SNES (%dx%d) aspect %f (ratio: %f)\n",
+				printf("\tScreen (%" PRId32 "x%" PRId32 ") aspect %f vs SNES (%" PRId32 "x%" PRId32 ") aspect %f (ratio: %f)\n",
 					WidthOfScreen(GUI.screen),HeightOfScreen(GUI.screen),screenAspect,
 					SNES_WIDTH,SNES_HEIGHT_EXTENDED,snesAspect,
 					ratio);
@@ -898,7 +898,7 @@ void S9xInitDisplay (int argc, char **argv)
 				}
 			}
 
-			printf("\tUsing size %dx%d with offset (%d,%d)\n",GUI.scale_w,GUI.scale_h,GUI.x_offset,GUI.y_offset);
+			printf("\tUsing size %" PRId32 "x%" PRId32 " with offset (%" PRId32 ",%" PRId32 ")\n",GUI.scale_w,GUI.scale_h,GUI.x_offset,GUI.y_offset);
 		}
 		else
 #endif
@@ -1040,7 +1040,7 @@ void S9xInitDisplay (int argc, char **argv)
 			break;
 	}
 
-	printf("Using internal pixel format %d\n",GUI.pixel_format);
+	printf("Using internal pixel format %" PRId32 "\n",GUI.pixel_format);
 }
 
 void S9xDeinitDisplay (void)
@@ -1192,7 +1192,7 @@ static void SetupXImage (void)
 					shmdt(GUI.sm_info.shmaddr);
 					shmctl(GUI.sm_info.shmid, IPC_RMID, 0);
 				} else
-					printf("Created XShmImage, size %d\n",GUI.image->data_size);
+					printf("Created XShmImage, size %" PRId32 "\n",GUI.image->data_size);
 			}
 		}
 	}
@@ -1210,7 +1210,7 @@ static void SetupXImage (void)
 		GUI.image->ximage->data = (char *) malloc(GUI.image->data_size);
 		if (!GUI.image->ximage || !GUI.image->ximage->data)
 			FatalError("XCreateImage failed.");
-		printf("Created XImage, size %d\n",GUI.image->data_size);
+		printf("Created XImage, size %" PRId32 "\n",GUI.image->data_size);
 #ifdef MITSHM
 	}
 #endif
@@ -1302,7 +1302,7 @@ static void SetupXvImage (void)
 					shmdt(GUI.sm_info.shmaddr);
 					shmctl(GUI.sm_info.shmid, IPC_RMID, 0);
 				} else
-					printf("Created XvShmImage, size %d\n",GUI.image->data_size);
+					printf("Created XvShmImage, size %" PRId32 "\n",GUI.image->data_size);
 			}
 		}
 	}
@@ -1323,7 +1323,7 @@ static void SetupXvImage (void)
 			GUI.use_xvideo = FALSE;
 			return;
 		}
-		printf("Created XvImage, size %d\n",GUI.image->data_size);
+		printf("Created XvImage, size %" PRId32 "\n",GUI.image->data_size);
 #ifdef MITSHM
 	}
 #endif

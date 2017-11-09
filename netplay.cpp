@@ -356,7 +356,7 @@ on the remote machine on this port?");
         }
         else
         {
-            sprintf (buf, "Connection to server failed with error number %d",
+            sprintf (buf, "Connection to server failed with error number %" PRId32 "",
 #ifdef __WIN32__
                      WSAGetLastError ()
 #else
@@ -536,7 +536,7 @@ void S9xNPClientLoop (void *)
                 if (!ReleaseSemaphore (GUI.ClientSemaphore, 1, &prev))
                 {
 #ifdef NP_DEBUG
-                    printf ("CLIENT: ReleaseSemaphore failed - already hit max count (%d) %ld\n", NP_JOYPAD_HIST_SIZE, S9xGetMilliTime () - START);
+                    printf ("CLIENT: ReleaseSemaphore failed - already hit max count (%" PRId32 ") %ld\n", NP_JOYPAD_HIST_SIZE, S9xGetMilliTime () - START);
 #endif
                     S9xNPSetWarning ("NetPlay: Client may be out of sync with server.");
                 }
@@ -618,7 +618,7 @@ bool8 S9xNPWaitForHeartBeat ()
         if (header [1] != NetPlay.ServerSequenceNum)
         {
             char buf [200];
-            sprintf (buf, "Unexpected message sequence number from server, expected %d, got %d\n", NetPlay.ServerSequenceNum, header [1]);
+            sprintf (buf, "Unexpected message sequence number from server, expected %" PRId32 ", got %" PRId32 "\n", NetPlay.ServerSequenceNum, header [1]);
             S9xNPSetWarning (buf);
             NetPlay.ServerSequenceNum = header [1] + 1;
         }
@@ -655,9 +655,9 @@ bool8 S9xNPWaitForHeartBeat ()
 
             if (NetPlay.JoypadWriteInd != (NetPlay.JoypadReadInd + 1) % NP_JOYPAD_HIST_SIZE)
             {
-                //printf ("(%d)", (NetPlay.JoypadWriteInd - NetPlay.JoypadReadInd) % NP_JOYPAD_HIST_SIZE); fflush (stdout);
+                //printf ("(%" PRId32 ")", (NetPlay.JoypadWriteInd - NetPlay.JoypadReadInd) % NP_JOYPAD_HIST_SIZE); fflush (stdout);
             }
-//printf ("CLIENT: HB: @%d\n", S9xGetMilliTime () - START);
+//printf ("CLIENT: HB: @%" PRId32 "\n", S9xGetMilliTime () - START);
             return (TRUE);
         }
         else
@@ -748,7 +748,7 @@ bool8 S9xNPLoadROMDialog (const char *rom_name)
     WaitForSingleObject (NetPlay.ReplyEvent, INFINITE);
 
 #ifdef NP_DEBUG
-    printf ("CLIENT: Got reply from GUI thread (%d)\n", NetPlay.Answer);
+    printf ("CLIENT: Got reply from GUI thread (%" PRId32 ")\n", NetPlay.Answer);
 #endif
 
 #else
@@ -966,7 +966,7 @@ void S9xNPStepJoypadHistory ()
         {
             S9xNPSetWarning ("This Snes9X session may be out of sync with the server.");
 #ifdef NP_DEBUG
-            printf ("*** CLIENT: client out of sync with server (%d, %d) @%ld\n", NetPlay.FrameCount, NetPlay.Frame [NetPlay.JoypadReadInd], S9xGetMilliTime () - START);
+            printf ("*** CLIENT: client out of sync with server (%" PRId32 ", %" PRId32 ") @%ld\n", NetPlay.FrameCount, NetPlay.Frame [NetPlay.JoypadReadInd], S9xGetMilliTime () - START);
 #endif
         }
     }
@@ -1120,7 +1120,7 @@ bool8 S9xNPGetData (int socket, uint8 *data, int length)
             {
                 got = num_bytes;
 #ifdef NP_DEBUG
-                printf ("CLIENT: WSAEMSGSIZE, actual bytes %d while receiving data @%ld\n", got, S9xGetMilliTime () - START);
+                printf ("CLIENT: WSAEMSGSIZE, actual bytes %" PRId32 " while receiving data @%ld\n", got, S9xGetMilliTime () - START);
 #endif
             }
 #else
@@ -1198,7 +1198,7 @@ void S9xNPDiscardHeartbeats ()
 void S9xNPSetAction (const char *action, bool8 force)
 {
 #ifdef NP_DEBUG
-    printf ("NPSetAction: %s, forced = %d %ld\n", action, force, S9xGetMilliTime () - START);
+    printf ("NPSetAction: %s, forced = %" PRId32 " %ld\n", action, force, S9xGetMilliTime () - START);
 #endif
     if (force || !Settings.NetPlayServer)
     {

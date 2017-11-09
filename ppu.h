@@ -514,7 +514,7 @@ static inline void REGISTER_2104 (uint8 Byte)
 #define CHECK_INBLANK() \
 	if (!PPU.ForcedBlanking && CPU.V_Counter < PPU.ScreenHeight + FIRST_VISIBLE_LINE) \
 	{ \
-		printf("Invalid VRAM acess at (%04d, %04d) blank:%d\n", CPU.Cycles, CPU.V_Counter, PPU.ForcedBlanking); \
+		printf("Invalid VRAM acess at (%04d, %04d) blank:%" PRId32 "\n", CPU.Cycles, CPU.V_Counter, PPU.ForcedBlanking); \
 		if (Settings.BlockInvalidVRAMAccess) \
 			return; \
 	}
@@ -555,7 +555,7 @@ static inline void REGISTER_2118 (uint8 Byte)
 	{
 	#ifdef DEBUGGER
 		if (Settings.TraceVRAM && !CPU.InDMAorHDMA)
-			printf("VRAM write byte: $%04X (%d, %d)\n", PPU.VMA.Address, Memory.FillRAM[0x2115] & 3, (Memory.FillRAM[0x2115] & 0x0c) >> 2);
+			printf("VRAM write byte: $%04" PRIX32 " (%" PRId32 ", %" PRId32 ")\n", PPU.VMA.Address, Memory.FillRAM[0x2115] & 3, (Memory.FillRAM[0x2115] & 0x0c) >> 2);
 	#endif
 		PPU.VMA.Address += PPU.VMA.Increment;
 	}
@@ -592,7 +592,7 @@ static inline void REGISTER_2119 (uint8 Byte)
 	{
 	#ifdef DEBUGGER
 		if (Settings.TraceVRAM && !CPU.InDMAorHDMA)
-			printf("VRAM write word: $%04X (%d, %d)\n", PPU.VMA.Address, Memory.FillRAM[0x2115] & 3, (Memory.FillRAM[0x2115] & 0x0c) >> 2);
+			printf("VRAM write word: $%04" PRIX32 " (%" PRId32 ", %" PRId32 ")\n", PPU.VMA.Address, Memory.FillRAM[0x2115] & 3, (Memory.FillRAM[0x2115] & 0x0c) >> 2);
 	#endif
 		PPU.VMA.Address += PPU.VMA.Increment;
 	}

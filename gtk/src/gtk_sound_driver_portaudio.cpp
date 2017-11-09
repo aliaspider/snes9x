@@ -144,7 +144,7 @@ S9xPortAudioSoundDriver::open_device (void)
         hostapi_info = Pa_GetHostApiInfo (i);
         if (!hostapi_info)
         {
-            printf ("Host API #%d has no info\n", i);
+            printf ("Host API #%" PRId32 " has no info\n", i);
             err = paNotInitialized;
             continue;
         }
@@ -160,7 +160,7 @@ S9xPortAudioSoundDriver::open_device (void)
         param.device = hostapi_info->defaultOutputDevice;
         param.suggestedLatency = gui_config->sound_buffer_size * 0.001;
 
-        printf ("(%s : %s, latency %dms)...",
+        printf ("(%s : %s, latency %" PRId32 "ms)...",
                 hostapi_info->name,
                 device_info->name,
                 (int) (param.suggestedLatency * 1000.0));

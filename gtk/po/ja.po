@@ -29,18 +29,18 @@ msgstr "キーボード %s%s%s%s"
 
 #: ../src/gtk_binding.cpp:216
 #, c-format
-msgid "Axis #%d %s %d%%"
-msgstr "軸 #%d %s %d%%"
+msgid "Axis #%" PRId32 " %s %" PRId32 "%%"
+msgstr "軸 #%" PRId32 " %s %" PRId32 "%%"
 
 #: ../src/gtk_binding.cpp:221
 #, c-format
-msgid "Button %d"
-msgstr "ボタン %d"
+msgid "Button %" PRId32 ""
+msgstr "ボタン %" PRId32 ""
 
 #: ../src/gtk_binding.cpp:223
 #, c-format
-msgid "Joystick %d %s"
-msgstr "ジョイスティック %d %s"
+msgid "Joystick %" PRId32 " %s"
+msgstr "ジョイスティック %" PRId32 " %s"
 
 #: ../src/gtk_binding.cpp:228
 #, c-format
@@ -298,7 +298,7 @@ msgstr "ステートセーブ"
 
 #: ../src/gtk_s9xwindow.cpp:1061
 #, c-format
-msgid "The current frame in the movie is <b>%d</b>."
+msgid "The current frame in the movie is <b>%" PRId32 "</b>."
 msgstr ""
 
 #: ../src/gtk_s9xwindow.cpp:1113
@@ -330,7 +330,7 @@ msgstr "ポーズ - "
 
 #: ../src/gtk_s9xwindow.cpp:1319
 #, c-format
-msgid "%s%s on NetPlay %s:%d - Player %d"
+msgid "%s%s on NetPlay %s:%" PRId32 " - Player %" PRId32 ""
 msgstr ""
 
 #: ../src/gtk_s9xwindow.cpp:1359
@@ -344,7 +344,7 @@ msgid ""
 "<i>Type:</i> %02x\n"
 "<i>Contents:</i> %s\n"
 "<i>ROM Size:</i> %s\n"
-"<i>Calculated Size:</i> %d\n"
+"<i>Calculated Size:</i> %" PRId32 "\n"
 "<i>SRAM Size:</i> %s\n"
 "<i>Header Checksum:</i> %04X\n"
 "<i>Checksum Compliment:</i> %04X\n"
