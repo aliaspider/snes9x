@@ -50,7 +50,10 @@ void module_init(const module_init_info_t *init_info, module_info_t *module_info
    S9xInitSound(20, 0);
 
    if (!Memory.LoadROM(init_info->filename))
+   {
       debug_log("load error\n");
+      return;
+   }
 
    module_info->output_width = 256;
    module_info->output_height = 224;
