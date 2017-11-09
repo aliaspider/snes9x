@@ -20,7 +20,7 @@ ifeq ($(platform),3ds)
    LIBDIRS := -L. -L$(DEVKITPRO)/libctru/lib -L $(DEVKITPRO)/portlibs/armv6k/lib
    ARCH  := -march=armv6k -mtune=mpcore -mfloat-abi=hard -marm -mfpu=vfp -mtp=soft
    CFLAGS += -mword-relocations -ffast-math -Werror=implicit-function-declaration $(ARCH)
-   CFLAGS += -DARM11 -D_3DS
+   CFLAGS += -DARM -DARM11 -D_3DS
    CXXFLAGS := $(CFLAGS) -fno-rtti -fno-exceptions -std=gnu++11
    CFLAGS   += -std=gnu99 -ffast-math
    ASFLAGS	:=  -g $(ARCH) -O3
